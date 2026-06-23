@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2666dc84887dbea4abc431b539b43a3f, type: 3}
+  m_Name: CarPlayer2
+  m_EditorClassIdentifier: 
+  carId: CarPlayer2
+  carName: Red Heavy
+  prefab: {fileID: 9090107892712831400, guid: 8f9fcdccfc7e05a44b03a89f4dfb5e97, type: 3}
+  UiSprite: {fileID: 21300000, guid: 5d1647dce7dbd3c459f4b3fbbc88742a, type: 3}
+  maxSpeed: 15
+  maxTurnSpeed: 200

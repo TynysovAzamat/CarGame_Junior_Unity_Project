@@ -1,0 +1,87 @@
+using UnityEngine;
+using System;
+public class Racing_Pause_GameState : IGameState
+{
+    private readonly IGameStateService _stateService;
+    private readonly ISceneLoader _sceneLoader;
+    private readonly Assets.CarGame.Assets.Features.Racing.Scripts.Data.RacingLevelData _currentLevelData;
+
+    private Racing_Pause_GameState_Model _model;
+    private Racing_Pause_Menu_View _view;
+
+    public Racing_Pause_GameState(IGameStateService stateService, ISceneLoader sceneLoader, Assets.CarGame.Assets.Features.Racing.Scripts.Data.RacingLevelData currentLevelData)
+    {
+        _stateService = stateService;
+        _sceneLoader = sceneLoader;
+        _currentLevelData = currentLevelData;
+    }
+
+    public void Enter()
+    {
+        Time.timeScale = 0f;
+        _model = new Racing_Pause_GameState_Model();
+
+        var prefab = Resources.Load<GameObject>("Racing/Prefabs/UI_PauseMenu_Canvas");
+        if (prefab == null)
+        {
+            Debug.LogError("[PauseState] Не найден префаб по пути 'Resources/Racing/Prefabs/UI_PauseMenu_Canvas'!");
+            return;
+        }
+
+        var instance = UnityEngine.Object.Instantiate(prefab);
+        _view = instance.GetComponent<Racing_Pause_Menu_View>();
+
+        if (_view != null)
+        {
+            _view.Init(_model);
+            _view.Show();
+        }
+
+        _model.OnResumeRequested += HandleResume;
+        _model.OnMainMenuRequested += HandleMainMenu;
+    }
+
+    public void Exit()
+    {
+        if (_model != null)
+        {
+            _model.OnResumeRequested -= HandleResume;
+            _model.OnMainMenuRequested -= HandleMainMenu;
+        }
+    }
+
+    private void HandleResume()
+    {
+        if (_view != null)
+        {
+            _view.Hide(() =>
+            {
+                Time.timeScale = 1f;
+                UnityEngine.Object.Destroy(_view.gameObject);
+
+                _stateService.ChangeState(new Racing_Gameplay_GameState(_stateService, _sceneLoader, _currentLevelData));
+            });
+        }
+    }
+
+    private void HandleMainMenu()
+    {
+        Time.timeScale = 1f;
+        if (_view != null)
+        {
+            _view.Hide(() =>
+            {
+                UnityEngine.Object.Destroy(_view.gameObject);
+
+                var gameplayView = UnityEngine.Object.FindAnyObjectByType<Racing_Gameplay_View>();
+                if (gameplayView != null) UnityEngine.Object.Destroy(gameplayView.gameObject);
+
+                _sceneLoader.LoadScene("Menu", () =>
+                {
+                    _stateService.ChangeState(new Racing_Main_Menu_GameState(_stateService, _sceneLoader));
+                });
+            });
+        }
+    }
+}
+

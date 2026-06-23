@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2666dc84887dbea4abc431b539b43a3f, type: 3}
+  m_Name: CarPlayer
+  m_EditorClassIdentifier: 
+  carId: CarPlayer
+  carName: Blue Bond
+  prefab: {fileID: 9090107892712831400, guid: 239c699810178c342ba6b7058d3bfd40, type: 3}
+  UiSprite: {fileID: 21300000, guid: bda3609ec060c6644bbaa117328698ed, type: 3}
+  maxSpeed: 20
+  maxTurnSpeed: 150

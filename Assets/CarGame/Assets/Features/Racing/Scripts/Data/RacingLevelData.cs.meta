@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 76bf3d0b16e0f3b41aa7e3b95f2511a0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - previewIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - trackPrefab: {fileID: 6579690792213078693, guid: fff0f65e38334b342bade3ee0c130d19, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

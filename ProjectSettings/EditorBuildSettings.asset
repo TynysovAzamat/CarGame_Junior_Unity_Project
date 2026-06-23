@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/CarGame/Assets/Core/Scenes/Startup.unity
+    guid: 23fdc15b1a6be624d8eeabc7b76b8590
+  - enabled: 1
+    path: Assets/CarGame/Assets/Core/Scenes/Menu.unity
+    guid: b7e5297e9b5c998459473f8f163af034
+  - enabled: 1
+    path: Assets/CarGame/Assets/Core/Scenes/Gameplay.unity
+    guid: d84a594d03202184e999c89ef7d4a50f
+  m_configObjects: {}

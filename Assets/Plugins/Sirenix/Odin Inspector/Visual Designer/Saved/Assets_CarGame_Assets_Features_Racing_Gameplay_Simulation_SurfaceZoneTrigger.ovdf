@@ -1,0 +1,19 @@
+OVDF v1.1
+Assets.CarGame.Assets.Features.Racing.Gameplay.Simulation.SurfaceZoneTrigger, Assembly-CSharp
+MetaGuid:c76f0f84ba30fcf43b65d70647536639
+
+# $CD8M3LLLdHVdRjwu9TagKS
+Position: $root:3
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+
+# OnTriggerEnter(Collider)
+Visibility: Hidden
+
+# OnTriggerExit(Collider)
+Visibility: Hidden
+
+# speedModifier
+Position: $CD8M3LLLdHVdRjwu9TagKS:0
+
+# zoneType
+Position: $root:1

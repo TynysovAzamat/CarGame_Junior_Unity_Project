@@ -1,0 +1,17 @@
+OVDF v1.1
+Racing_Gameplay_View, Assembly-CSharp
+MetaGuid:f774f1834930f3748826623a7d3d3b4f
+
+# $L634KdLTz7zDhzF12pLww8
+Position: $root:7
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+
+# $BpY4u1hBQy8GyTLDHKrUWm
+Position: $root
++ [Sirenix.OdinInspector.VerticalGroupAttribute]
+
+# hudCanvasGroup
+Position: $BpY4u1hBQy8GyTLDHKrUWm:0
+
+# goJoystickImage
+Position: $BpY4u1hBQy8GyTLDHKrUWm:1

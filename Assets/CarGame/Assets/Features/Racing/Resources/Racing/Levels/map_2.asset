@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76bf3d0b16e0f3b41aa7e3b95f2511a0, type: 3}
+  m_Name: map_2
+  m_EditorClassIdentifier: 
+  levelID: 2
+  levelName: Map2
+  previewIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  trackPrefab: {fileID: 6579690792213078693, guid: 7ddcf9fe63b51f9419a273bfdfa7d11e, type: 3}
+  baseCarSpeed: 10
+  targetTime: 60

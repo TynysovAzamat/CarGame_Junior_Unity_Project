@@ -1,0 +1,18 @@
+OVDF v1.1
+GameBootstrapper, Assembly-CSharp
+MetaGuid:e40d2265ad5eb1b479e75599f47de7fa
+
+# _currentState
+Visibility: Hidden
+
+# Awake()
+Visibility: Hidden
+
+# Start()
+Visibility: Hidden
+
+# ChangeState(IGameState)
+Visibility: Hidden
+
+# LoadScene(string, Action)
+Visibility: Hidden

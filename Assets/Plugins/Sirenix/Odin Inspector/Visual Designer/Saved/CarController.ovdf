@@ -1,0 +1,38 @@
+OVDF v1.1
+CarController, Assembly-CSharp
+MetaGuid:454bf0fc3cb00fc4d965f71743f186a8
+
+# $BSd8EvsC5twBCvBBm4wt3n
+Position: $root:3
++ [Sirenix.OdinInspector.BoxGroupAttribute]
+
+# $17cL96RUtEuqhTS5ftw3k
+Position: $root:1
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+
+# _rb
+Position: $BSd8EvsC5twBCvBBm4wt3n:0
+Visibility: Shown
+
+# _targerSpeed
+Position: $17cL96RUtEuqhTS5ftw3k:0
+Visibility: Shown
+
+# _model
+Position: $BSd8EvsC5twBCvBBm4wt3n:1
+Visibility: Shown
+
+# InjectModel(Racing_Gameplay_Model)
+Visibility: Hidden
+
+# SetPhysicsSpeed(float)
+Visibility: Hidden
+
+# FixedUpdate()
+Visibility: Hidden
+
+# Awake()
+Visibility: Hidden
+
+# Model
+Position: $root:0
