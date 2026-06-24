@@ -109,6 +109,7 @@ public class Racing_Gameplay_GameState : IGameState
         _view.OnJoystickInputChanged += HandleJoystickInputChanged;
         _model.OnMovementCalculated += HandleMovementCalculated;
         _model.OnRaceFinished += HandleRaceFinished;
+        _view.OnPauseClicked += HandlePauseClicked;
 
         _spawnedCar.SetPhysicsSpeed(_model.BaseSpeed, 0f);
     }
@@ -120,12 +121,17 @@ public class Racing_Gameplay_GameState : IGameState
         if (_view != null) _view.OnJoystickInputChanged -= HandleJoystickInputChanged;
         if (_model != null) _model.OnMovementCalculated -= HandleMovementCalculated;
         if (_model != null) _model.OnRaceFinished -= HandleRaceFinished;
+        if (_view != null) _view.OnPauseClicked -= HandlePauseClicked;
 
         if (_view != null) Object.Destroy(_view.gameObject);
         if (_spawnedCar != null) Object.Destroy(_spawnedCar.gameObject);
         if (_spawnedTrack != null) Object.Destroy(_spawnedTrack.gameObject);
     }
 
+    private void HandlePauseClicked()
+    {
+        _stateService.ChangeState(new Racing_Pause_GameState(_stateService, _sceneLoader, _levelData, this));
+    }
     private void HandleJoystickInputChanged(Vector2 joystickVector)
     {
         _model?.SetJoystickInput(joystickVector);

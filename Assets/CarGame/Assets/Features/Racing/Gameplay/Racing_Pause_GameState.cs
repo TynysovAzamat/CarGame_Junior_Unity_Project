@@ -5,15 +5,17 @@ public class Racing_Pause_GameState : IGameState
     private readonly IGameStateService _stateService;
     private readonly ISceneLoader _sceneLoader;
     private readonly Assets.CarGame.Assets.Features.Racing.Scripts.Data.RacingLevelData _currentLevelData;
-
+    private readonly IGameState _previousGameplayState;
+    
     private Racing_Pause_GameState_Model _model;
     private Racing_Pause_Menu_View _view;
 
-    public Racing_Pause_GameState(IGameStateService stateService, ISceneLoader sceneLoader, Assets.CarGame.Assets.Features.Racing.Scripts.Data.RacingLevelData currentLevelData)
+    public Racing_Pause_GameState(IGameStateService stateService, ISceneLoader sceneLoader, Assets.CarGame.Assets.Features.Racing.Scripts.Data.RacingLevelData currentLevelData, IGameState previousGameplayState  )
     {
         _stateService = stateService;
         _sceneLoader = sceneLoader;
         _currentLevelData = currentLevelData;
+        _previousGameplayState = previousGameplayState;
     }
 
     public void Enter()
@@ -59,7 +61,7 @@ public class Racing_Pause_GameState : IGameState
                 Time.timeScale = 1f;
                 UnityEngine.Object.Destroy(_view.gameObject);
 
-                _stateService.ChangeState(new Racing_Gameplay_GameState(_stateService, _sceneLoader, _currentLevelData));
+                _stateService.ChangeState(_previousGameplayState);
             });
         }
     }
