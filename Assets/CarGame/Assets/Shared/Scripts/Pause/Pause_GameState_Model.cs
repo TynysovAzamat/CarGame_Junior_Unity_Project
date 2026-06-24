@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Racing_Pause_GameState_Model
+public class Pause_GameState_Model
 {
     public event Action OnResumeRequested;
     public event Action OnMainMenuRequested;

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-public class Racing_Pause_Menu_View : MonoBehaviour
+public class Pause_Menu_View : MonoBehaviour
 {
     [Header("Animation Components")]
     [SerializeField] private CanvasGroup canvasGroup;
@@ -16,9 +16,9 @@ public class Racing_Pause_Menu_View : MonoBehaviour
     [Header("Shared Settings Sub-Prefab")]
     [SerializeField] private SettingsWindowView settingsWindow;
 
-    private Racing_Pause_GameState_Model _model;
+    private Pause_GameState_Model _model;
 
-    public void Init(Racing_Pause_GameState_Model model)
+    public void Init(Pause_GameState_Model model)
     {
         canvasGroup.alpha = 0f;
         gameObject.SetActive(false);

@@ -1,16 +1,16 @@
 using UnityEngine;
 using System;
-public class Racing_Pause_GameState : IGameState
+public class Pause_GameState : IGameState
 {
     private readonly IGameStateService _stateService;
     private readonly ISceneLoader _sceneLoader;
     private readonly Assets.CarGame.Assets.Features.Racing.Scripts.Data.RacingLevelData _currentLevelData;
     private readonly IGameState _previousGameplayState;
     
-    private Racing_Pause_GameState_Model _model;
-    private Racing_Pause_Menu_View _view;
+    private Pause_GameState_Model _model;
+    private Pause_Menu_View _view;
 
-    public Racing_Pause_GameState(IGameStateService stateService, ISceneLoader sceneLoader, Assets.CarGame.Assets.Features.Racing.Scripts.Data.RacingLevelData currentLevelData, IGameState previousGameplayState  )
+    public Pause_GameState(IGameStateService stateService, ISceneLoader sceneLoader, Assets.CarGame.Assets.Features.Racing.Scripts.Data.RacingLevelData currentLevelData, IGameState previousGameplayState  )
     {
         _stateService = stateService;
         _sceneLoader = sceneLoader;
@@ -21,7 +21,7 @@ public class Racing_Pause_GameState : IGameState
     public void Enter()
     {
         Time.timeScale = 0f;
-        _model = new Racing_Pause_GameState_Model();
+        _model = new Pause_GameState_Model();
 
         var prefab = Resources.Load<GameObject>("Racing/Prefabs/UI_PauseMenu_Canvas");
         if (prefab == null)
@@ -31,7 +31,7 @@ public class Racing_Pause_GameState : IGameState
         }
 
         var instance = UnityEngine.Object.Instantiate(prefab);
-        _view = instance.GetComponent<Racing_Pause_Menu_View>();
+        _view = instance.GetComponent<Pause_Menu_View>();
 
         if (_view != null)
         {

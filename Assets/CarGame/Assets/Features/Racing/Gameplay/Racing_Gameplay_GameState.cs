@@ -130,7 +130,7 @@ public class Racing_Gameplay_GameState : IGameState
 
     private void HandlePauseClicked()
     {
-        _stateService.ChangeState(new Racing_Pause_GameState(_stateService, _sceneLoader, _levelData, this));
+        _stateService.ChangeState(new Pause_GameState(_stateService, _sceneLoader, _levelData, this));
     }
     private void HandleJoystickInputChanged(Vector2 joystickVector)
     {
