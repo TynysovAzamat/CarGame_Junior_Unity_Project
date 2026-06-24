@@ -1,46 +1,51 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
-using System;
+using UnityEngine;
+using UnityEngine.UI;
 public class SettingsWindowView : MonoBehaviour
 {
     [Header("Animation Components")]
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private RectTransform panelRectTransform;
 
-    [Header("Sound Category")]
-    [SerializeField] private Slider masterSlider;
-    [SerializeField] private Slider musicSlider;
-    [SerializeField] private Slider soundsSlider;
-
-    [Header("Language Category")]
-    [SerializeField] private TMP_Dropdown languageDropdown;
+    [Header("Polymorphic Navigation & Panels")]
+    [SerializeField] private List<SettingsTabButton> tabButtons;
+    [SerializeField] private List<SettingsPanelBase> settingsPanels;
+    [SerializeField] private string defaultPanelId = "Audio";
 
     [Header("Navigation")]
     [SerializeField] private Button closeButton;
 
+    private Dictionary<string, SettingsPanelBase> panelsDictionary = new Dictionary<string, SettingsPanelBase>();
+    private SettingsPanelBase currentActivePanel;
     public event Action OnClosePressed;
+    private Pause_GameState_Model _pauseModel;
 
     private void Awake()
     {
-        closeButton.onClick.AddListener(() => OnClosePressed?.Invoke());
+        DOTween.Init();
 
-        masterSlider.onValueChanged.AddListener(val => PlayerPrefs.SetFloat("Volume_Master", val));
-        musicSlider.onValueChanged.AddListener(val => PlayerPrefs.SetFloat("Volume_Music", val));
-        soundsSlider.onValueChanged.AddListener(val => PlayerPrefs.SetFloat("Volume_Sounds", val));
+        DOTween.defaultUpdateType = UpdateType.Normal;
+        DOTween.defaultTimeScaleIndependent = true;
+    }
 
-        languageDropdown.onValueChanged.AddListener(index => LocalizationManager.SetLanguage(index));
+    public void Init(Pause_GameState_Model model)
+    {
+        _pauseModel = model;
     }
 
     public void Open()
     {
         gameObject.SetActive(true);
 
-        masterSlider.value = PlayerPrefs.GetFloat("Volume_Master", 1f);
-        musicSlider.value = PlayerPrefs.GetFloat("Volume_Music", 1f);
-        soundsSlider.value = PlayerPrefs.GetFloat("Volume_Sounds", 1f);
-        languageDropdown.value = LocalizationManager.CurrentLanguageId;
+        foreach (var panel in settingsPanels)
+        {
+            if (panel != null) panel.InitializeData();
+        }
+
+        SwitchCategory(defaultPanelId);
 
         canvasGroup.alpha = 0f;
         if (panelRectTransform != null) panelRectTransform.localScale = Vector3.one * 0.5f;
@@ -71,6 +76,26 @@ public class SettingsWindowView : MonoBehaviour
             gameObject.SetActive(false);
             onComplete?.Invoke();
         }).SetUpdate(true);
+    }
+
+    private void SwitchCategory(string panelId)
+    {
+        if (!panelsDictionary.ContainsKey(panelId)) return;
+        SettingsPanelBase targetPanel = panelsDictionary[panelId];
+        if (currentActivePanel == targetPanel) return;
+
+        if (currentActivePanel != null) currentActivePanel.Hide();
+        targetPanel.Show();
+        currentActivePanel = targetPanel;
+    }
+
+    private void OnDestroy()
+    {
+        closeButton.onClick.RemoveAllListeners();
+        foreach (var button in tabButtons)
+        {
+            if (button != null) button.OnTabClicked -= SwitchCategory;
+        }
     }
 }
 

@@ -42,6 +42,23 @@ public class Racing_Gameplay_View : MonoBehaviour
         hudCanvasGroup.DOFade(0f, 0.3f).OnComplete(() => onComplete?.Invoke());
     }
 
+    public void SetInputActive(bool isActive)
+    {
+        if (TryGetComponent<CanvasGroup>(out var canvasGroup))
+        {
+            canvasGroup.blocksRaycasts = isActive;
+            canvasGroup.interactable = isActive;
+        }
+    }
+
+    public void ResetJoystick()
+    {
+        if (goJoystickImage != null)
+        {
+            goJoystickImage.OnPointerUp(null);
+        }
+    }
+
     private void Update()
     {
         if (goJoystickImage == null) return;

@@ -10,6 +10,9 @@ public class Racing_Gameplay_GameState : IGameState
     private readonly ISceneLoader _sceneLoader;
     private readonly RacingLevelData _levelData;
 
+    private Pause_GameState_Model _pauseModel;
+    private Pause_Menu_View _pauseView;
+
     private Racing_Gameplay_Model _model;
     private Racing_Gameplay_View _view;
 
@@ -25,7 +28,10 @@ public class Racing_Gameplay_GameState : IGameState
 
     public void Enter()
     {
-       
+        if (_view != null)
+        {
+            _view.SetInputActive(true);
+        }
 
         var hudPrefab = Resources.Load<Racing_Gameplay_View>("Racing/Prefabs/UI_Racing_HUD");
         if (hudPrefab == null)
@@ -130,8 +136,49 @@ public class Racing_Gameplay_GameState : IGameState
 
     private void HandlePauseClicked()
     {
-        _stateService.ChangeState(new Pause_GameState(_stateService, _sceneLoader, _levelData, this));
+        Time.timeScale = 0f;
+        _view.ResetJoystick();
+        _view.SetInputActive(false);
+
+        _pauseModel = new Pause_GameState_Model();
+        var prefab = Resources.Load<GameObject>("Shared/Prefabs/UI_PauseMenu_Canvas");
+        var instance = Object.Instantiate(prefab);
+        _pauseView = instance.GetComponent<Pause_Menu_View>();
+
+        _pauseView.Init(_pauseModel);
+        _pauseView.Show();
+
+        _pauseModel.OnResumeRequested += ResumeGame;
+        _pauseModel.OnMainMenuRequested += GoToMainMenu;
     }
+
+    private void ResumeGame()
+    {
+        _pauseModel.OnResumeRequested -= ResumeGame;
+        _pauseModel.OnMainMenuRequested -= GoToMainMenu;
+
+        if (_pauseView != null)
+        {
+            _pauseView.Hide(() => 
+            {
+                Object.Destroy(_pauseView.gameObject);
+                Time.timeScale = 1f;
+                _view.SetInputActive(true);
+            });
+        }
+    }
+
+    private void GoToMainMenu()
+    {
+        _pauseModel.OnResumeRequested -= ResumeGame;
+        _pauseModel.OnMainMenuRequested -= GoToMainMenu;
+
+        Time.timeScale = 1f;
+        if (_pauseView != null) Object.Destroy(_pauseView.gameObject);
+
+        _stateService.ChangeState(new Racing_Main_Menu_GameState(_stateService, _sceneLoader));
+    }
+
     private void HandleJoystickInputChanged(Vector2 joystickVector)
     {
         _model?.SetJoystickInput(joystickVector);
@@ -151,7 +198,8 @@ public class Racing_Gameplay_GameState : IGameState
         }
         else 
         { 
-            SpawnWinMenu3D(); }
+            SpawnWinMenu3D(); 
+        }
     }
 
     private void SpawnWinMenu3D()

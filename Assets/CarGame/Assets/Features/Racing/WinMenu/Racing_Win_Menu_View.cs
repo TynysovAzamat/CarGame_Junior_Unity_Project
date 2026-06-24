@@ -45,11 +45,11 @@ public class Racing_Win_Menu_View : MonoBehaviour
     {
         if (canvasGroup == null) return; 
 
-        SetButtonsInteractble(false);
+        canvasGroup.SetInputActive(false);
 
         canvasGroup.DOFade(0f, 0.5f).SetUpdate(true).OnComplete(() =>
         {
-            if (_currentLevel == null) { SetButtonsInteractble(true); return; }
+            if (_currentLevel == null) { canvasGroup.SetInputActive(true); return; }
 
             int currentLevelId = _currentLevel.LevelID;
             string dynamicPath = $"Racing/Levels/Map_{currentLevelId}";
@@ -58,11 +58,11 @@ public class Racing_Win_Menu_View : MonoBehaviour
             if (freshLevelData == null)
             {
                 Debug.LogError($"[WinMenu] Ошибка: Не удалось найти ассет по пути '{dynamicPath}'. Проверьте имя файла в папке Resources!");
-                SetButtonsInteractble(true);
+                canvasGroup.SetInputActive(true);
                 return;
             }
 
-            if (_stateService == null || _sceneLoader == null) { SetButtonsInteractble(true); return; }
+            if (_stateService == null || _sceneLoader == null) { canvasGroup.SetInputActive(true); return; }
 
             IGameStateService cachedStateService = _stateService;
             ISceneLoader cachedSceneLoader = _sceneLoader;
@@ -84,7 +84,7 @@ public class Racing_Win_Menu_View : MonoBehaviour
 
     private void HandleNextLevel()
     {
-        SetButtonsInteractble(false);
+        canvasGroup.SetInputActive(false);
 
         canvasGroup.DOFade(0f, 0.5f).SetUpdate(true).OnComplete(() =>
         {
@@ -123,13 +123,13 @@ public class Racing_Win_Menu_View : MonoBehaviour
     {
         if (canvasGroup == null) return;
 
-        SetButtonsInteractble(false);
+        canvasGroup.SetInputActive(false);
 
         canvasGroup.DOFade(0f, 0.5f).SetUpdate(true).OnComplete(() =>
         {
             if (_stateService == null || _sceneLoader == null)
             {
-                SetButtonsInteractble(true);
+                canvasGroup.SetInputActive(true);
                 return;
             }
 
@@ -155,13 +155,6 @@ public class Racing_Win_Menu_View : MonoBehaviour
             var freshMenuState = new Racing_Main_Menu_GameState(_stateService, _sceneLoader);
             _stateService.ChangeState(freshMenuState);
         });
-    }
-
-    private void SetButtonsInteractble(bool interactable)
-    {
-        if (playAgainButton != null) playAgainButton.interactable = interactable;
-        if (mainMenuButton != null) mainMenuButton.interactable = interactable;
-        if (nextLevelButton != null) mainMenuButton.interactable = interactable;
     }
     private void OnDestroy()
     {
