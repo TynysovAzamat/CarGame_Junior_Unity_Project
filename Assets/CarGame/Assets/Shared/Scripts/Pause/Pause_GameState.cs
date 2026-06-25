@@ -36,9 +36,14 @@ public class Pause_GameState : IGameState
         _model = new Pause_GameState_Model();
 
         // 3. Подписываемся на модель ДО инициализации View
-        _model.OnRestartRequested += HandleRestart;
-        _model.OnResumeRequested += HandleResume;
-        _model.OnMainMenuRequested += HandleMainMenu;
+
+        if (_model != null)
+        {
+            _model.OnRestartRequested += HandleRestart;
+            _model.OnResumeRequested += HandleResume;
+            _model.OnMainMenuRequested += HandleMainMenu;
+        }
+        
 
         // 4. Создаем инстанс UI
         var instance = UnityEngine.Object.Instantiate(prefab);

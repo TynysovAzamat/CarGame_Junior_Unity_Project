@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Racing_Win_Menu_View : MonoBehaviour
 {
     // Testing for cmd git commands
+    
     [SerializeField] private CanvasGroup canvasGroup;
 
     [Header("Buttons")]
@@ -37,9 +38,9 @@ public class Racing_Win_Menu_View : MonoBehaviour
         canvasGroup.alpha = 0f;
         canvasGroup.DOFade(1f, 0.5f).SetUpdate(true);
 
-        playAgainButton?.onClick.AddListener(HandlePlayAgain);
-        mainMenuButton?.onClick.AddListener(HandleMainMenu);
-        nextLevelButton?.onClick.AddListener(HandleNextLevel);
+        if (playAgainButton != null) playAgainButton.onClick.AddListener(HandlePlayAgain);
+        if (mainMenuButton != null) mainMenuButton.onClick.AddListener(HandleMainMenu);
+        if (nextLevelButton != null) nextLevelButton.onClick.AddListener(HandleNextLevel);
     }
 
     private void HandlePlayAgain()
@@ -159,8 +160,8 @@ public class Racing_Win_Menu_View : MonoBehaviour
     }
     private void OnDestroy()
     {
-        playAgainButton?.onClick.RemoveListener(HandlePlayAgain);
-        mainMenuButton?.onClick.RemoveListener(HandleMainMenu);
-        nextLevelButton?.onClick.RemoveListener(HandleNextLevel);
+        if (playAgainButton != null) playAgainButton.onClick.RemoveListener(HandlePlayAgain);
+        if (mainMenuButton != null) mainMenuButton.onClick.RemoveListener(HandleMainMenu);
+        if (nextLevelButton != null) nextLevelButton.onClick.RemoveListener(HandleNextLevel);
     }
 }

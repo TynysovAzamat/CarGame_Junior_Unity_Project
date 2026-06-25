@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Racing_Main_Menu_GameState : IGameState
 {
-    private const string CAR_PREFS_KEY = "Racing_SelectedCar";
+    private const string CAR_PREFS_KEY = "Racing_SelectedCarId";
 
     private readonly IGameStateService _stateService;
     private readonly ISceneLoader _sceneLoader;
@@ -56,9 +56,9 @@ public class Racing_Main_Menu_GameState : IGameState
             // связываем интерфейс с игрой
             _view.Init(_model);
 
-            _view.OnExitButtonClicked += HandleExitGame;
-            _model.OnCarSelected += HandleCarSelected;
-            _view.OnLevelButtonClicked += HandleLevelSelected;
+            if (_view != null) _view.OnExitButtonClicked += HandleExitGame;
+            if (_model != null) _model.OnCarSelected += HandleCarSelected;
+            if (_view != null) _view.OnLevelButtonClicked += HandleLevelSelected;
 
             _view.AnimateIn();
 

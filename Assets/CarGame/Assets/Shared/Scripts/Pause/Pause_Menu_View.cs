@@ -28,11 +28,9 @@ public class Pause_Menu_View : MonoBehaviour
           settingsWindow.Init(_model);
         }
 
-
-
-        resumeButton?.onClick.AddListener(() => _model.RequestResume());
-        mainMenuButton?.onClick.AddListener(() => _model.RequestMainMenu());
-        openSettingsButton?.onClick.AddListener(() => settingsWindow.Open());
+        if (resumeButton != null) resumeButton.onClick.AddListener(() => _model.RequestResume());
+        if (mainMenuButton != null) mainMenuButton.onClick.AddListener(() => _model.RequestMainMenu());
+        if (openSettingsButton != null) openSettingsButton.onClick.AddListener(() => settingsWindow.Open());
 
         restartButton.onClick.AddListener(() =>
         {
@@ -79,17 +77,18 @@ public class Pause_Menu_View : MonoBehaviour
     }
     private void OnDestroy()
     {
-        resumeButton?.onClick.RemoveAllListeners();
-        mainMenuButton?.onClick.RemoveAllListeners();
-        openSettingsButton?.onClick.RemoveAllListeners();
-        restartButton?.onClick.RemoveAllListeners();
+        if (resumeButton != null) resumeButton.onClick.RemoveAllListeners();
+        if (mainMenuButton != null) mainMenuButton.onClick.RemoveAllListeners();
+        if (openSettingsButton != null) openSettingsButton.onClick.RemoveAllListeners();
+        if (restartButton != null) restartButton.onClick.RemoveAllListeners();
+
         if (settingsWindow != null) settingsWindow.OnClosePressed -= () => settingsWindow.Close();
     }
 
     public void SubscribeToRestart(UnityEngine.Events.UnityAction action)
     {
         // Очищаем только старые системные листенеры Unity, если они были в префабе
-        restartButton?.onClick.RemoveAllListeners();
+        if (restartButton != null) restartButton.onClick.RemoveAllListeners();
         // Добавляем лог + само действие
         restartButton.onClick.AddListener(() => {
             Debug.Log("<color=yellow>[Pause View] Кнопка RESTART физически нажата! Вызываю HandleRestart напрямую...</color>");
@@ -99,13 +98,13 @@ public class Pause_Menu_View : MonoBehaviour
 
     public void SubscribeToResume(UnityEngine.Events.UnityAction action)
     {
-        resumeButton?.onClick.RemoveAllListeners();
-        resumeButton?.onClick.AddListener(action);
+        if (resumeButton != null) resumeButton.onClick.RemoveAllListeners();
+        if (resumeButton != null) resumeButton.onClick.AddListener(action);
     }
 
     public void SubscribeToMainMenu(UnityEngine.Events.UnityAction action)
     {
-        mainMenuButton?.onClick.RemoveAllListeners();
-        mainMenuButton?.onClick.AddListener(action);
+        if (mainMenuButton != null) mainMenuButton.onClick.RemoveAllListeners();
+        if (mainMenuButton != null) mainMenuButton.onClick.AddListener(action);
     }
 }

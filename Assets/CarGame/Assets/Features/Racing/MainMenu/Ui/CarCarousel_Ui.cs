@@ -33,17 +33,21 @@ public class CarCarousel_Ui : MonoBehaviour
         _model = model;
         if (model == null) return;
 
-        _leftArrowButton?.onClick.AddListener(() => _model.PreviousCar());
-        _rightArrowButton?.onClick?.AddListener(() => _model.NextCar());
+        if (_leftArrowButton != null) _leftArrowButton.onClick.AddListener(() => _model.PreviousCar());
+        if (_rightArrowButton != null) _rightArrowButton.onClick.AddListener(() => _model.NextCar());
 
         UpdateCarouselVisualsInstant();
-        _model.OnCarCarouselChanged += AnimateCarChange;
+
+        if (_model != null)
+        {
+            _model.OnCarCarouselChanged += AnimateCarChange;
+        }
     }
 
     public void CleanUp()
     {
-        _leftArrowButton?.onClick.RemoveAllListeners();
-        _rightArrowButton?.onClick.RemoveAllListeners();
+        if (_leftArrowButton != null) _leftArrowButton.onClick.RemoveAllListeners();
+        if (_rightArrowButton != null) _rightArrowButton.onClick.RemoveAllListeners();
 
         if (_model != null) _model.OnCarCarouselChanged -= AnimateCarChange;
         KillAllTweens();

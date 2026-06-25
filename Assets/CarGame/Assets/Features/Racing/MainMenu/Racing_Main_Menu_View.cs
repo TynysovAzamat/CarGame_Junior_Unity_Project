@@ -34,9 +34,9 @@ public class Racing_Main_Menu_View : MonoBehaviour
     [Header("Carousel Componet")]
     [SerializeField] private CarCarousel_Ui _carCarousel_Ui;
 
-    private CarConfigData _cachedCenterCar;
-    private CarConfigData _cachedLeftCar;
-    private CarConfigData _cachedRightCar;
+    private readonly CarConfigData _cachedCenterCar;
+    private readonly CarConfigData _cachedLeftCar;
+    private readonly CarConfigData _cachedRightCar;
 
     private Racing_Main_Menu_Model _model;
     public void Init(Racing_Main_Menu_Model model)
@@ -55,11 +55,11 @@ public class Racing_Main_Menu_View : MonoBehaviour
         carsPanel.localScale = Vector3.zero;
 
         // ��������� �� �������
-        openLevelsButton?.onClick.AddListener(() => TogglePanel3D(levelsPanel, true));
-        closeLevelsButton?.onClick.AddListener(() => TogglePanel3D(levelsPanel, false));
-        openCarsButton?.onClick.AddListener(() => TogglePanel3D(carsPanel, true));
-        closeCarsButton?.onClick.AddListener(() => TogglePanel3D(carsPanel, false));
-        exitGameButton?.onClick.AddListener(HandleExitClick);
+        if (openLevelsButton != null) openLevelsButton.onClick.AddListener(() => TogglePanel3D(levelsPanel, true));
+        if (closeLevelsButton != null) closeLevelsButton.onClick.AddListener(() => TogglePanel3D(levelsPanel, false));
+        if (openCarsButton != null) openCarsButton.onClick.AddListener(() => TogglePanel3D(carsPanel, true));
+        if (closeCarsButton != null) closeCarsButton.onClick.AddListener(() => TogglePanel3D(carsPanel, false));
+        if (exitGameButton != null) exitGameButton.onClick.AddListener(HandleExitClick);
 
 
         // ������ ������ ����� � �������
@@ -157,10 +157,10 @@ public class Racing_Main_Menu_View : MonoBehaviour
     }
     private void OnDestroy()
     {
-        openLevelsButton?.onClick.RemoveAllListeners();
-        closeLevelsButton?.onClick.RemoveAllListeners();
-        openCarsButton?.onClick.RemoveAllListeners();
-        closeCarsButton?.onClick.RemoveAllListeners();
+        if (openLevelsButton != null) openLevelsButton.onClick.RemoveAllListeners();
+        if (closeLevelsButton != null) closeLevelsButton.onClick.RemoveAllListeners();
+        if (openCarsButton != null) openCarsButton.onClick.RemoveAllListeners();
+        if (closeCarsButton != null) closeCarsButton.onClick.RemoveAllListeners();
 
         if (exitGameButton != null)
         {

@@ -112,10 +112,11 @@ public class Racing_Gameplay_GameState : IGameState
         }
 
         _spawnedCar.InjectModel(_model);
-        _view.OnJoystickInputChanged += HandleJoystickInputChanged;
-        _model.OnMovementCalculated += HandleMovementCalculated;
-        _model.OnRaceFinished += HandleRaceFinished;
-        _view.OnPauseClicked += HandlePauseClicked;
+
+        if (_view != null) _view.OnJoystickInputChanged += HandleJoystickInputChanged;
+        if (_model != null) _model.OnMovementCalculated += HandleMovementCalculated;
+        if (_model != null) _model.OnRaceFinished += HandleRaceFinished;
+        if (_view != null) _view.OnPauseClicked += HandlePauseClicked;
 
         _spawnedCar.SetPhysicsSpeed(_model.BaseSpeed, 0f);
     }
@@ -186,7 +187,7 @@ public class Racing_Gameplay_GameState : IGameState
 
     private void HandleMovementCalculated(float newSpeed, float newTurnInput)
     {
-        _spawnedCar?.SetPhysicsSpeed(newSpeed, newTurnInput);
+        if ( _spawnedCar != null) _spawnedCar.SetPhysicsSpeed(newSpeed, newTurnInput);
     }
 
     private void HandleRaceFinished()
