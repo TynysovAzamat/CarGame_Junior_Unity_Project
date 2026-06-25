@@ -23,10 +23,9 @@ public class GameBootstrapper : MonoBehaviour, IGameStateService, ISceneLoader
         // и заходим в неё
         if (newState == null) return;
 
-        if (_currentState != null)
-        {
-            _currentState.Exit();
-        }
+        
+        _currentState?.Exit();
+        
 
         _currentState = newState;
         _currentState.Enter();

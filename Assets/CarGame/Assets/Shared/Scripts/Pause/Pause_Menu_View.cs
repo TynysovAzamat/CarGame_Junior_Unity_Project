@@ -32,11 +32,14 @@ public class Pause_Menu_View : MonoBehaviour
         if (mainMenuButton != null) mainMenuButton.onClick.AddListener(() => _model.RequestMainMenu());
         if (openSettingsButton != null) openSettingsButton.onClick.AddListener(() => settingsWindow.Open());
 
-        restartButton.onClick.AddListener(() =>
+        if (restartButton != null)
         {
-            Debug.Log("<color=yellow>[Pause View] Кнопка RESTART физически нажата в Unity!</color>");
-            _model.RequestRestart();
-        });
+            restartButton.onClick.AddListener(() =>
+            {
+                Debug.Log("<color=yellow>[Pause View] Кнопка RESTART физически нажата в Unity!</color>");
+                _model.RequestRestart();
+            });
+        }
     }
 
     public void Show(Action onComplete = null)

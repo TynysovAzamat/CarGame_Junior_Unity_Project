@@ -151,6 +151,7 @@ public class Racing_Gameplay_GameState : IGameState
 
         _pauseModel.OnResumeRequested += ResumeGame;
         _pauseModel.OnMainMenuRequested += GoToMainMenu;
+        _pauseModel.OnRestartRequested += RestartGame;
     }
 
     private void ResumeGame()
@@ -178,6 +179,17 @@ public class Racing_Gameplay_GameState : IGameState
         if (_pauseView != null) Object.Destroy(_pauseView.gameObject);
 
         _stateService.ChangeState(new Racing_Main_Menu_GameState(_stateService, _sceneLoader));
+    }
+
+    private void RestartGame()
+    {
+        _pauseModel.OnResumeRequested -= ResumeGame;
+        _pauseModel.OnMainMenuRequested -= GoToMainMenu;
+
+        Time.timeScale = 1f;
+        if (_pauseView != null) Object.Destroy(_pauseView.gameObject);
+
+        _stateService.ChangeState(new Racing_Gameplay_GameState(_stateService, _sceneLoader, _levelData));
     }
 
     private void HandleJoystickInputChanged(Vector2 joystickVector)

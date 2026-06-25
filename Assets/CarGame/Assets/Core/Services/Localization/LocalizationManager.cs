@@ -21,8 +21,8 @@ public static class LocalizationManager
         { "OpenPlayAgainButton", new[] { "Play again", "Играть снова"} },
         { "CarSettingsText",       new[] { "SPEED: {0}\nTURN SPEED: {1}", "Скорость: {0}\nПодвижность: {1}" } },
         { "Blue Bond",                  new[] { "Blue Bond",    "Синий Бонд" } },
-        { "Purple Guy",              new[] { "Red Heavy", "Красный и тяжёлый" } },
-        { "Red Heavy",                new[] { "Purple Guy",   "Фиолетовый чел" } },
+        { "Red Heavy",              new[] { "Red Heavy", "Красный и тяжёлый" } },
+        { "Purple Guy",                new[] { "Purple Guy",   "Фиолетовый чел" } },
         { "Map1",               new[] { "Map1", "Карта1" } },
         { "Map2",                 new[] { "Map2",   "Карта2" } },
     };
