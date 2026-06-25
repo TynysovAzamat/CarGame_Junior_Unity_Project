@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Racing_Win_Menu_View : MonoBehaviour
 {
+    // Testing for cmd git commands
     [SerializeField] private CanvasGroup canvasGroup;
 
     [Header("Buttons")]
