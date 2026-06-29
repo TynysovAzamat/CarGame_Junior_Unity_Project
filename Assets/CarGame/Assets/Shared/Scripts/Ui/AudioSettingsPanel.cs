@@ -5,10 +5,10 @@ public class AudioSettingsPanel : SettingsPanelBase
     [SerializeField] private Slider masterSlider;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider soundsSlider;
-
     public override void InitializeData()
     {
-       
+        base.InitializeData();
+
         masterSlider.onValueChanged.RemoveAllListeners();
         musicSlider.onValueChanged.RemoveAllListeners();
         soundsSlider.onValueChanged.RemoveAllListeners();
@@ -25,5 +25,10 @@ public class AudioSettingsPanel : SettingsPanelBase
         masterSlider.value = PlayerPrefs.GetFloat("Volume_Master", 1f);
         musicSlider.value = PlayerPrefs.GetFloat("Volume_Music", 0.3f);
         soundsSlider.value = PlayerPrefs.GetFloat("Volume_Sounds", 0.3f);
+    }
+
+    private void OnDestroy()
+    {
+        closeButton.onClick.RemoveAllListeners();
     }
 }

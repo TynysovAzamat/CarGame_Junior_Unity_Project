@@ -2,35 +2,26 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-public class Pause_Menu_View : MonoBehaviour
+public class Pause_Menu_View : BaseMenuView
 {
-    [Header("Animation Components")]
-    [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private RectTransform mainPanel;
 
     [Header("Main Pause Panel")]
     [SerializeField] private Button resumeButton;
-    [SerializeField] private Button openSettingsButton;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private Button restartButton;
 
-    [Header("Shared Settings Sub-Prefab")]
-    [SerializeField] private SettingsWindowView settingsWindow;
+    [Header("Settings Menu Panel")]
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private GameObject pauseMenuPanel; 
 
     private Pause_GameState_Model _model;
-    public CanvasGroup CanvasGroup => canvasGroup;
+    
     public void Init(Pause_GameState_Model model)
     {
         _model = model;
 
-        if (settingsWindow != null)
-        {
-          settingsWindow.Init(_model);
-        }
-
         if (resumeButton != null) resumeButton.onClick.AddListener(() => _model.RequestResume());
         if (mainMenuButton != null) mainMenuButton.onClick.AddListener(() => _model.RequestMainMenu());
-        if (openSettingsButton != null) openSettingsButton.onClick.AddListener(() => settingsWindow.Open());
 
         if (restartButton != null)
         {
@@ -40,35 +31,39 @@ public class Pause_Menu_View : MonoBehaviour
                 _model.RequestRestart();
             });
         }
+
+        if (settingsButton != null)
+        {
+            settingsButton.onClick.AddListener(() => _model.RequestSettings());
+        }
     }
 
     public void Show(Action onComplete = null)
     {
         gameObject.SetActive(true);
+        if (pauseMenuPanel != null) pauseMenuPanel.SetActive(true);
 
-        canvasGroup.SetInputActive(false);
-        canvasGroup.DOFade(1f, 0.3f).SetUpdate(true);
+        MainCanvasGroup.SetInputActive(false);
 
+        MainCanvasGroup.DOFade(1f, 0.3f).SetUpdate(true);
+        MainRectTransform.localScale = Vector3.zero;
 
-        mainPanel.localScale = Vector3.zero;
-
-        mainPanel.DOScale(Vector3.one, 0.3f)
+        MainRectTransform.DOScale(Vector3.one, 0.3f)
         .SetEase(Ease.OutBack)
         .SetUpdate(true)
         .OnComplete(() =>
         {
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
+            MainCanvasGroup.SetInputActive(true);
             onComplete?.Invoke();
         });
     }
 
     public void Hide(Action onComplete)
     {
-        canvasGroup.SetInputActive(false);
-        canvasGroup.DOFade(0f, 0.2f).SetUpdate(true);
+        MainCanvasGroup.SetInputActive(false);
+        MainCanvasGroup.DOFade(0f, 0.2f).SetUpdate(true);
+        MainRectTransform.DOScale(Vector3.zero, 0.2f)
 
-        mainPanel.DOScale(Vector3.zero, 0.2f)
         .SetEase(Ease.InBack)
         .SetUpdate(true)
         .OnComplete(() =>
@@ -78,16 +73,6 @@ public class Pause_Menu_View : MonoBehaviour
         });
 
     }
-    private void OnDestroy()
-    {
-        if (resumeButton != null) resumeButton.onClick.RemoveAllListeners();
-        if (mainMenuButton != null) mainMenuButton.onClick.RemoveAllListeners();
-        if (openSettingsButton != null) openSettingsButton.onClick.RemoveAllListeners();
-        if (restartButton != null) restartButton.onClick.RemoveAllListeners();
-
-        if (settingsWindow != null) settingsWindow.OnClosePressed -= () => settingsWindow.Close();
-    }
-
     public void SubscribeToRestart(UnityEngine.Events.UnityAction action)
     {
         // Очищаем только старые системные листенеры Unity, если они были в префабе
@@ -109,5 +94,33 @@ public class Pause_Menu_View : MonoBehaviour
     {
         if (mainMenuButton != null) mainMenuButton.onClick.RemoveAllListeners();
         if (mainMenuButton != null) mainMenuButton.onClick.AddListener(action);
+    }
+    public void AnimateIn(Action onComplete = null)
+    {
+        if (MainCanvasGroup == null) return;
+        MainCanvasGroup.DOFade(1f, 0.5f).OnComplete(() => onComplete?.Invoke());
+    }
+
+    public void AnimateOut(Action onComplete = null)
+    {
+        if (MainCanvasGroup == null)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        MainCanvasGroup.DOFade(0f, 0.4f)
+        .OnComplete(() =>
+        {
+            onComplete?.Invoke();
+        });
+    }
+
+    private void OnDestroy()
+    {
+        if (resumeButton != null) resumeButton.onClick.RemoveAllListeners();
+        if (mainMenuButton != null) mainMenuButton.onClick.RemoveAllListeners();
+        if (settingsButton != null) settingsButton.onClick.RemoveAllListeners();
+        if (restartButton != null) restartButton.onClick.RemoveAllListeners();
     }
 }

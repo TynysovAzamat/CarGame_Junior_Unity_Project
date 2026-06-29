@@ -2,7 +2,7 @@ using Assets.CarGame.Assets.Features.Racing.Scripts.Data;
 using TMPro;
 using UnityEngine;
 
-public class Racing_Gameplay_GameState : IGameState
+public class Racing_Gameplay_GameState : BaseMenuView, IGameState
 {
     private const string CAR_PREFS_KEY = "Racing_SelectedCarId";
 
@@ -18,7 +18,7 @@ public class Racing_Gameplay_GameState : IGameState
 
     private GameObject _spawnedTrack;
     private CarController _spawnedCar;
-
+    private SettingsWindowView _settingsView;
     public Racing_Gameplay_GameState(IGameStateService stateService, ISceneLoader sceneLoader, RacingLevelData levelData)
     {
         _stateService = stateService;
@@ -111,6 +111,22 @@ public class Racing_Gameplay_GameState : IGameState
             return;
         }
 
+        var settingsPrefab = Resources.Load<GameObject>("Shared/Prefabs/UI_Settings_Canvas");
+        if (settingsPrefab != null)
+        {
+            var settingsInstance = Object.Instantiate(settingsPrefab);
+            _settingsView = settingsInstance.GetComponent<SettingsWindowView>();
+
+            if (_settingsView != null)
+            {
+                _settingsView.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            Debug.LogError("[GameplayState] Ошибка: Не найден префаб UI_Settings_Canvas в Resources!");
+        }
+
         _spawnedCar.InjectModel(_model);
 
         if (_view != null) _view.OnJoystickInputChanged += HandleJoystickInputChanged;
@@ -133,6 +149,7 @@ public class Racing_Gameplay_GameState : IGameState
         if (_view != null) Object.Destroy(_view.gameObject);
         if (_spawnedCar != null) Object.Destroy(_spawnedCar.gameObject);
         if (_spawnedTrack != null) Object.Destroy(_spawnedTrack.gameObject);
+        if (_settingsView != null) Object.Destroy(_settingsView.gameObject);
     }
 
     private void HandlePauseClicked()
@@ -149,15 +166,45 @@ public class Racing_Gameplay_GameState : IGameState
         _pauseView.Init(_pauseModel);
         _pauseView.Show();
 
+        if (_settingsView != null)
+        {
+            _settingsView.Init(null);
+            _settingsView.OnClosePressed += HandleSettingsClosed;
+        }
+
         _pauseModel.OnResumeRequested += ResumeGame;
         _pauseModel.OnMainMenuRequested += GoToMainMenu;
         _pauseModel.OnRestartRequested += RestartGame;
+        _pauseModel.OnSettingsRequested += HandleSettingsSelected;
+    }
+
+    private void HandleSettingsSelected()
+        {
+            if (_settingsView == null || _pauseView == null) return;
+
+            _pauseView.Hide(() => { _settingsView.Open(); });
+        }
+
+    private void HandleSettingsClosed()
+    {
+        if (_settingsView == null || _pauseView == null) return;
+
+        _settingsView.Close(() =>
+        {
+            _settingsView.gameObject.SetActive(false);
+
+            _pauseView.gameObject.SetActive(true);
+            _pauseView.MainCanvasGroup.SetInputActive(false);
+            _pauseView.AnimateIn(() =>
+            {
+                _pauseView.MainCanvasGroup.SetInputActive(true);
+            });
+        });
     }
 
     private void ResumeGame()
     {
-        _pauseModel.OnResumeRequested -= ResumeGame;
-        _pauseModel.OnMainMenuRequested -= GoToMainMenu;
+        UnsubscribePauseEvents();
 
         if (_pauseView != null)
         {
@@ -172,8 +219,7 @@ public class Racing_Gameplay_GameState : IGameState
 
     private void GoToMainMenu()
     {
-        _pauseModel.OnResumeRequested -= ResumeGame;
-        _pauseModel.OnMainMenuRequested -= GoToMainMenu;
+        UnsubscribePauseEvents();
 
         Time.timeScale = 1f;
         if (_pauseView != null) Object.Destroy(_pauseView.gameObject);
@@ -183,15 +229,24 @@ public class Racing_Gameplay_GameState : IGameState
 
     private void RestartGame()
     {
-        _pauseModel.OnResumeRequested -= ResumeGame;
-        _pauseModel.OnMainMenuRequested -= GoToMainMenu;
+        UnsubscribePauseEvents();
 
         Time.timeScale = 1f;
         if (_pauseView != null) Object.Destroy(_pauseView.gameObject);
 
         _stateService.ChangeState(new Racing_Gameplay_GameState(_stateService, _sceneLoader, _levelData));
     }
+    private void UnsubscribePauseEvents()
+    {
+        if (_pauseModel == null) return;
 
+        _pauseModel.OnResumeRequested -= ResumeGame;
+        _pauseModel.OnMainMenuRequested -= GoToMainMenu;
+        _pauseModel.OnRestartRequested -= RestartGame;
+        _pauseModel.OnSettingsRequested -= HandleSettingsSelected;
+
+        if (_settingsView != null) _settingsView.OnClosePressed -= HandleSettingsClosed;
+    }
     private void HandleJoystickInputChanged(Vector2 joystickVector)
     {
         _model?.SetJoystickInput(joystickVector);

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Assets.CarGame.Assets.Features.Racing.Scripts.Data;
 using UnityEngine;
 
-public class Racing_Main_Menu_GameState : IGameState
+public class Racing_Main_Menu_GameState : BaseMenuView, IGameState
 {
     private const string CAR_PREFS_KEY = "Racing_SelectedCarId";
 
@@ -11,8 +11,7 @@ public class Racing_Main_Menu_GameState : IGameState
 
     private Racing_Main_Menu_Model _model;
     private Racing_Main_Menu_View _view;
-
-
+    private SettingsWindowView _settingsWindowView;
     public Racing_Main_Menu_GameState(IGameStateService stateService, ISceneLoader sceneLoader)
     {
         _stateService = stateService;
@@ -53,12 +52,33 @@ public class Racing_Main_Menu_GameState : IGameState
                 return;
             }
 
+            GameObject settingsPrefabObject = Resources.Load<GameObject>("Shared/Prefabs/Ui_Settings_Canvas");
+            if (settingsPrefabObject == null) return;
+
+            GameObject spawnedSettingsInstance = Object.Instantiate(settingsPrefabObject);
+            _settingsWindowView = spawnedSettingsInstance.GetComponent<SettingsWindowView>();
+
+            if (_settingsWindowView != null)
+            {
+                _settingsWindowView.Init(null);
+
+                _settingsWindowView.gameObject.SetActive(false);
+            }
+
             // связываем интерфейс с игрой
             _view.Init(_model);
 
-            if (_view != null) _view.OnExitButtonClicked += HandleExitGame;
+            if (_view != null)
+            {
+                _view.Init(_model);
+                _view.OnExitButtonClicked += HandleExitGame;
+                _view.OnSettingsButtonClicked += HandleSettingsSelected;
+                _view.OnLevelButtonClicked += HandleLevelSelected;
+            }
+
+            if (_settingsWindowView != null) _settingsWindowView.OnClosePressed += HandleSettingsClosed;
+
             if (_model != null) _model.OnCarSelected += HandleCarSelected;
-            if (_view != null) _view.OnLevelButtonClicked += HandleLevelSelected;
 
             _view.AnimateIn();
 
@@ -70,14 +90,23 @@ public class Racing_Main_Menu_GameState : IGameState
     public void Exit()
     {
         // удаляем все объекты с сцены 
+        if (_view != null )
+        {
+            _view.OnLevelButtonClicked -= HandleLevelSelected;
+            _view.OnExitButtonClicked -= HandleExitGame;
+            _view.OnSettingsButtonClicked -= HandleSettingsSelected;
+        }
+        
         if (_model != null) _model.OnCarSelected -= HandleCarSelected;
-        if (_view != null) _view.OnLevelButtonClicked -= HandleLevelSelected;
-        if (_view != null) _view.OnExitButtonClicked -= HandleExitGame;
+        
+        if (_settingsWindowView != null) _settingsWindowView.OnClosePressed -= HandleSettingsClosed;
+        
 
         GameObject menuCube = GameObject.FindWithTag("MenuDecor");
         if (menuCube != null) Object.Destroy(menuCube);
 
         if (_view != null) Object.Destroy(_view.gameObject);
+        if (_settingsWindowView != null) Object.Destroy(_settingsWindowView.gameObject);
     }
 
     private void HandleCarSelected(string carId)
@@ -127,5 +156,30 @@ public class Racing_Main_Menu_GameState : IGameState
             UnityEditor.EditorApplication.isPlaying = false;
         #endif  
             Application.Quit();
+    }
+
+    private void HandleSettingsSelected()
+    {
+        if (_settingsWindowView == null || _view == null) return;
+
+        _view.AnimateOut(() => { _settingsWindowView.Open(); });
+    }
+
+    private void HandleSettingsClosed()
+    {
+        if (_settingsWindowView == null || _view == null) return;
+        
+        
+
+        _settingsWindowView.Close(() => 
+        {
+            _settingsWindowView.gameObject.SetActive(false);
+
+            _view.AnimateIn(()  =>
+            {
+                var settingButton = _view.GetComponentInChildren<UnityEngine.UI.Button>();
+                _view.MainCanvasGroup.SetInputActive(true);
+            });
+        });
     }
 }

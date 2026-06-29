@@ -2,17 +2,16 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using UnityEngine.UI;
-public class Racing_Gameplay_View : MonoBehaviour
+public class Racing_Gameplay_View : BaseMenuView
 {
-    [SerializeField] private CanvasGroup hudCanvasGroup;
     [SerializeField] private Joystick goJoystickImage;
     [SerializeField] private Button pauseButton;
 
     public event Action<Vector2> OnJoystickInputChanged;
     public event Action OnPauseClicked;
-    private void Awake()
+    protected override void Awake()
     {
-        if (hudCanvasGroup == null || goJoystickImage == null)
+        if (MainCanvasGroup == null || goJoystickImage == null)
         {
             Debug.LogError($"Racing_Gameplay_View on Prefab {gameObject.name} does not have CanvasGroup/GoButton components configured");
         }
@@ -26,28 +25,27 @@ public class Racing_Gameplay_View : MonoBehaviour
     public void AnimateIn()
     {
         // пр€чем кнопнку
-        if (hudCanvasGroup == null) return;
-        hudCanvasGroup.alpha = 0f;
-        hudCanvasGroup.DOFade(1f, 0.3f);
+        if (MainCanvasGroup == null) return;
+        MainCanvasGroup.alpha = 0f;
+        MainCanvasGroup.DOFade(1f, 0.3f);
     }
 
     public void AnimateOut(Action onComplete = null)
     {
-        if (hudCanvasGroup == null)
+        if (MainCanvasGroup == null)
         {
             onComplete?.Invoke();
             return;
         }
 
-        hudCanvasGroup.DOFade(0f, 0.3f).OnComplete(() => onComplete?.Invoke());
+        MainCanvasGroup.DOFade(0f, 0.3f).OnComplete(() => onComplete?.Invoke());
     }
 
     public void SetInputActive(bool isActive)
     {
         if (TryGetComponent<CanvasGroup>(out var canvasGroup))
         {
-            canvasGroup.blocksRaycasts = isActive;
-            canvasGroup.interactable = isActive;
+            canvasGroup.SetInputActive(isActive);
         }
     }
 

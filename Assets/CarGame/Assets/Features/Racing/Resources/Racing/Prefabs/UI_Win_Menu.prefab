@@ -116,7 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709b8f70ff196474fbed22dd39fc6890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 7810331052491415404}
+  mainCanvasGroup: {fileID: 7810331052491415404}
+  mainRectTransform: {fileID: 3861439561275400680}
   playAgainButton: {fileID: 3540012234487164953}
   mainMenuButton: {fileID: 3018397922913429975}
   nextLevelButton: {fileID: 113745505430461270}
@@ -143,6 +144,7 @@ GameObject:
   - component: {fileID: 1041702740167821719}
   - component: {fileID: 1348751011017398476}
   - component: {fileID: 3314846348166568662}
+  - component: {fileID: 536078457957899443}
   m_Layer: 5
   m_Name: MainMenuText
   m_TagString: Untagged
@@ -206,8 +208,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -266,6 +268,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &536078457957899443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832647286185124952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8c99bfbbcc5914ab2d52ee42d08522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  englishFont: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  russianFont: {fileID: 11400000, guid: 52ab8b4c9f916d1429e96a05dad49bc6, type: 2}
+  _dynamicSpeed: 0
+  _dynamicTurnSpeed: 0
+  _hasDynamicStats: 0
+  localizationKey: 
 --- !u!1 &1854496718809167436
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +297,7 @@ GameObject:
   - component: {fileID: 403402547261579496}
   - component: {fileID: 4733848933069296106}
   - component: {fileID: 5134972270487403250}
+  - component: {fileID: 9057100352440783548}
   m_Layer: 5
   m_Name: PlayAgainText
   m_TagString: Untagged
@@ -340,8 +361,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -400,6 +421,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &9057100352440783548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854496718809167436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8c99bfbbcc5914ab2d52ee42d08522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  englishFont: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  russianFont: {fileID: 11400000, guid: 52ab8b4c9f916d1429e96a05dad49bc6, type: 2}
+  _dynamicSpeed: 0
+  _dynamicTurnSpeed: 0
+  _hasDynamicStats: 0
+  localizationKey: 
 --- !u!1 &2174093390220764311
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,6 +450,7 @@ GameObject:
   - component: {fileID: 5278227620080343579}
   - component: {fileID: 7174991319384565486}
   - component: {fileID: 6027186111104097848}
+  - component: {fileID: 2148549323033953933}
   m_Layer: 5
   m_Name: NextLevelText
   m_TagString: Untagged
@@ -476,8 +516,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -536,6 +576,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2148549323033953933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2174093390220764311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8c99bfbbcc5914ab2d52ee42d08522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  englishFont: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  russianFont: {fileID: 11400000, guid: 52ab8b4c9f916d1429e96a05dad49bc6, type: 2}
+  _dynamicSpeed: 0
+  _dynamicTurnSpeed: 0
+  _hasDynamicStats: 0
+  localizationKey: 
 --- !u!1 &2569310654660656781
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,8 +661,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -724,8 +782,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -789,6 +847,7 @@ GameObject:
   - component: {fileID: 7712877462547399216}
   - component: {fileID: 3924761567326245693}
   - component: {fileID: 5625008279417507914}
+  - component: {fileID: 1595511994412040273}
   m_Layer: 5
   m_Name: WinText
   m_TagString: Untagged
@@ -912,6 +971,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1595511994412040273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387763042581467021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8c99bfbbcc5914ab2d52ee42d08522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  englishFont: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  russianFont: {fileID: 11400000, guid: 52ab8b4c9f916d1429e96a05dad49bc6, type: 2}
+  _dynamicSpeed: 0
+  _dynamicTurnSpeed: 0
+  _hasDynamicStats: 0
+  localizationKey: 
 --- !u!1 &3540223952172313926
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,8 +1056,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

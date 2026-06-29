@@ -4,13 +4,13 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-public class Racing_Main_Menu_View : MonoBehaviour
+public class Racing_Main_Menu_View : BaseMenuView
 {
     public event Action<RacingLevelData> OnLevelButtonClicked;
     public event Action OnExitButtonClicked;
+    public event Action OnSettingsButtonClicked;
     // ���� ��� ������ � ������� ��������
     [Header("Main Panels")]
-    [SerializeField] private CanvasGroup mainCanvasGroup;
     [SerializeField] private Transform levelsPanel;
     [SerializeField] private Transform carsPanel;
 
@@ -20,6 +20,7 @@ public class Racing_Main_Menu_View : MonoBehaviour
     [SerializeField] private Button closeLevelsButton;
     [SerializeField] private Button closeCarsButton;
     [SerializeField] private Button exitGameButton;
+    [SerializeField] private Button settingsButton;
  
     [Header("Dynamic Content Containers")]
     [SerializeField] private Transform levelsContentContainer;
@@ -43,14 +44,14 @@ public class Racing_Main_Menu_View : MonoBehaviour
     {
         _model = model ?? throw new ArgumentNullException(nameof(model));
 
-        if (mainCanvasGroup == null || levelsPanel == null || carsPanel == null)
+        if (MainCanvasGroup == null || levelsPanel == null || carsPanel == null)
         {
             Debug.LogError("Main menu view is not properly set up. Please assign all required references.");
             return;
         }
 
         // ����� ��������� ��������
-        mainCanvasGroup.alpha = 0f;
+        MainCanvasGroup.alpha = 0f;
         levelsPanel.localScale = Vector3.zero;
         carsPanel.localScale = Vector3.zero;
 
@@ -60,7 +61,7 @@ public class Racing_Main_Menu_View : MonoBehaviour
         if (openCarsButton != null) openCarsButton.onClick.AddListener(() => TogglePanel3D(carsPanel, true));
         if (closeCarsButton != null) closeCarsButton.onClick.AddListener(() => TogglePanel3D(carsPanel, false));
         if (exitGameButton != null) exitGameButton.onClick.AddListener(HandleExitClick);
-
+        if (settingsButton != null) settingsButton.onClick.AddListener(HandleSettingsButton);
 
         // ������ ������ ����� � �������
         BuildLevelsList();
@@ -88,19 +89,19 @@ public class Racing_Main_Menu_View : MonoBehaviour
 
     public void AnimateIn(Action onComplete = null)
     {
-        if (mainCanvasGroup == null) return;
-        mainCanvasGroup.DOFade(1f, 0.5f).OnComplete(() => onComplete?.Invoke());
+        if (MainCanvasGroup == null) return;
+        MainCanvasGroup.DOFade(1f, 0.5f).OnComplete(() => onComplete?.Invoke());
     }
 
     public void AnimateOut(Action onComplete = null)
     {
-        if (mainCanvasGroup == null)
+        if (MainCanvasGroup == null)
         {
             onComplete?.Invoke();
             return;
         }
 
-        mainCanvasGroup.DOFade(0f, 0.4f)
+        MainCanvasGroup.DOFade(0f, 0.4f)
         .OnComplete(() =>
         {
             onComplete?.Invoke();
@@ -151,9 +152,16 @@ public class Racing_Main_Menu_View : MonoBehaviour
 
     private void HandleExitClick()
     {
-        if (exitGameButton != null) exitGameButton.interactable = false;
+        if (exitGameButton != null) MainCanvasGroup.SetInputActive(false);
 
         OnExitButtonClicked?.Invoke();
+    }
+
+    private void HandleSettingsButton()
+    {
+        if (settingsButton != null) MainCanvasGroup.SetInputActive(false);
+
+        OnSettingsButtonClicked?.Invoke();
     }
     private void OnDestroy()
     {
@@ -161,11 +169,9 @@ public class Racing_Main_Menu_View : MonoBehaviour
         if (closeLevelsButton != null) closeLevelsButton.onClick.RemoveAllListeners();
         if (openCarsButton != null) openCarsButton.onClick.RemoveAllListeners();
         if (closeCarsButton != null) closeCarsButton.onClick.RemoveAllListeners();
-
-        if (exitGameButton != null)
-        {
-            exitGameButton.onClick.RemoveListener(HandleExitClick);
-        }
+        if (settingsButton != null) settingsButton.onClick.RemoveAllListeners();
+        if (exitGameButton != null) exitGameButton.onClick.RemoveListener(HandleExitClick);
+        
 
         if (levelsContentContainer != null)
         {

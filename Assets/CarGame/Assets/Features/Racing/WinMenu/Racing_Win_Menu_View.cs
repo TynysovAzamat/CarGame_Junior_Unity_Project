@@ -2,11 +2,9 @@ using Assets.CarGame.Assets.Features.Racing.Scripts.Data;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-public class Racing_Win_Menu_View : MonoBehaviour
+public class Racing_Win_Menu_View : BaseMenuView
 {
     // Testing for cmd git commands
-    
-    [SerializeField] private CanvasGroup canvasGroup;
 
     [Header("Buttons")]
     [SerializeField] private Button playAgainButton;
@@ -25,7 +23,7 @@ public class Racing_Win_Menu_View : MonoBehaviour
             return;
         }
 
-        if (canvasGroup == null || playAgainButton == null || mainMenuButton == null)
+        if (MainCanvasGroup == null || playAgainButton == null || mainMenuButton == null)
         {
             Debug.LogError("UI components are not assigned in the inspector.");
             return;
@@ -35,8 +33,8 @@ public class Racing_Win_Menu_View : MonoBehaviour
         _currentLevel = currentLevel;
         _sceneLoader = sceneLoader;
 
-        canvasGroup.alpha = 0f;
-        canvasGroup.DOFade(1f, 0.5f).SetUpdate(true);
+        MainCanvasGroup.alpha = 0f;
+        MainCanvasGroup.DOFade(1f, 0.5f).SetUpdate(true);
 
         if (playAgainButton != null) playAgainButton.onClick.AddListener(HandlePlayAgain);
         if (mainMenuButton != null) mainMenuButton.onClick.AddListener(HandleMainMenu);
@@ -45,13 +43,13 @@ public class Racing_Win_Menu_View : MonoBehaviour
 
     private void HandlePlayAgain()
     {
-        if (canvasGroup == null) return; 
+        if (MainCanvasGroup == null) return; 
 
-        canvasGroup.SetInputActive(false);
+        MainCanvasGroup.SetInputActive(false);
 
-        canvasGroup.DOFade(0f, 0.5f).SetUpdate(true).OnComplete(() =>
+        MainCanvasGroup.DOFade(0f, 0.5f).SetUpdate(true).OnComplete(() =>
         {
-            if (_currentLevel == null) { canvasGroup.SetInputActive(true); return; }
+            if (_currentLevel == null) { MainCanvasGroup.SetInputActive(true); return; }
 
             int currentLevelId = _currentLevel.LevelID;
             string dynamicPath = $"Racing/Levels/Map_{currentLevelId}";
@@ -60,11 +58,11 @@ public class Racing_Win_Menu_View : MonoBehaviour
             if (freshLevelData == null)
             {
                 Debug.LogError($"[WinMenu] Ошибка: Не удалось найти ассет по пути '{dynamicPath}'. Проверьте имя файла в папке Resources!");
-                canvasGroup.SetInputActive(true);
+                MainCanvasGroup.SetInputActive(true);
                 return;
             }
 
-            if (_stateService == null || _sceneLoader == null) { canvasGroup.SetInputActive(true); return; }
+            if (_stateService == null || _sceneLoader == null) { MainCanvasGroup.SetInputActive(true); return; }
 
             IGameStateService cachedStateService = _stateService;
             ISceneLoader cachedSceneLoader = _sceneLoader;
@@ -86,9 +84,9 @@ public class Racing_Win_Menu_View : MonoBehaviour
 
     private void HandleNextLevel()
     {
-        canvasGroup.SetInputActive(false);
+        MainCanvasGroup.SetInputActive(false);
 
-        canvasGroup.DOFade(0f, 0.5f).SetUpdate(true).OnComplete(() =>
+        MainCanvasGroup.DOFade(0f, 0.5f).SetUpdate(true).OnComplete(() =>
         {
             int nextLevelId = _currentLevel.LevelID + 1;
             RacingLevelData nextLevelData = Resources.Load<RacingLevelData>($"Racing/Levels/Map_{nextLevelId}");
@@ -123,15 +121,15 @@ public class Racing_Win_Menu_View : MonoBehaviour
 
     private void HandleMainMenu()
     {
-        if (canvasGroup == null) return;
+        if (MainCanvasGroup == null) return;
 
-        canvasGroup.SetInputActive(false);
+        MainCanvasGroup.SetInputActive(false);
 
-        canvasGroup.DOFade(0f, 0.5f).SetUpdate(true).OnComplete(() =>
+        MainCanvasGroup.DOFade(0f, 0.5f).SetUpdate(true).OnComplete(() =>
         {
             if (_stateService == null || _sceneLoader == null)
             {
-                canvasGroup.SetInputActive(true);
+                MainCanvasGroup.SetInputActive(true);
                 return;
             }
 

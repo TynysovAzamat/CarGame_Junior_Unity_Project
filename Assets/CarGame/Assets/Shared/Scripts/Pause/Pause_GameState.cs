@@ -1,8 +1,9 @@
 using Assets.CarGame.Assets.Features.Racing.Scripts.Data;
 using UnityEngine;
 
-public class Pause_GameState : IGameState
+public class Pause_GameState : BaseMenuView, IGameState 
 {
+
     private readonly IGameStateService _stateService;
     private readonly ISceneLoader _sceneLoader;
     private readonly RacingLevelData _currentLevelData;
@@ -10,21 +11,24 @@ public class Pause_GameState : IGameState
 
     private Pause_GameState_Model _model;
     private Pause_Menu_View _view;
-
+    private SettingsWindowView _settingsWindowView;
     public Pause_GameState(IGameStateService stateService, ISceneLoader sceneLoader,
-     RacingLevelData currentLevelData, IGameState previousGameplayState)
+     RacingLevelData currentLevelData, IGameState previousGameplayState, Pause_Menu_View view, SettingsWindowView settingsWindowView)
     {
         _stateService = stateService;
         _sceneLoader = sceneLoader;
         _currentLevelData = currentLevelData;
         _previousGameplayState = previousGameplayState;
+        _view = view;
+        _settingsWindowView = settingsWindowView;
     }
 
     public void Enter()
     {
         Time.timeScale = 0f;
 
-        // 1. Сначала загружаем префаб и проверяем его
+        _model = new Pause_GameState_Model();
+
         var prefab = Resources.Load<GameObject>("Shared/Prefabs/UI_PauseMenu_Canvas");
         if (prefab == null)
         {
@@ -32,22 +36,24 @@ public class Pause_GameState : IGameState
             return;
         }
 
-        // 2. Создаем модель
-        _model = new Pause_GameState_Model();
+        var instance = UnityEngine.Object.Instantiate(prefab);
+        _view = instance.GetComponent<Pause_Menu_View>();
 
-        // 3. Подписываемся на модель ДО инициализации View
+        GameObject settingsPrefabObject = Resources.Load<GameObject>("Shared/Prefabs/Ui_Settings_Canvas");
+        if (settingsPrefabObject != null)
+        {
+            GameObject spawnedSettingsInstance = UnityEngine.Object.Instantiate(settingsPrefabObject);
+            _settingsWindowView = spawnedSettingsInstance.GetComponent<SettingsWindowView>();
+        }
 
         if (_model != null)
         {
             _model.OnRestartRequested += HandleRestart;
             _model.OnResumeRequested += HandleResume;
             _model.OnMainMenuRequested += HandleMainMenu;
+            _model.OnSettingsRequested += HandleSettingsSelected;
+            
         }
-        
-
-        // 4. Создаем инстанс UI
-        var instance = UnityEngine.Object.Instantiate(prefab);
-        _view = instance.GetComponent<Pause_Menu_View>();
 
         if (_view != null)
         {
@@ -59,6 +65,13 @@ public class Pause_GameState : IGameState
         {
             Debug.LogError("[Pause State] Ошибка: Компонент Pause_Menu_View не найден на префабе!");
         }
+
+        if (_settingsWindowView != null)
+        {
+            _settingsWindowView.Init(null);
+            _settingsWindowView.gameObject.SetActive(false);
+            _settingsWindowView.OnClosePressed += HandleSettingsClosed;
+        }
     }
 
     public void Exit()
@@ -68,6 +81,18 @@ public class Pause_GameState : IGameState
             _model.OnResumeRequested -= HandleResume;
             _model.OnMainMenuRequested -= HandleMainMenu;
             _model.OnRestartRequested -= HandleRestart;
+            _model.OnSettingsRequested -= HandleSettingsSelected;
+        }
+
+        if (_settingsWindowView != null)
+        {
+            _settingsWindowView.OnClosePressed -= HandleSettingsClosed;
+            _settingsWindowView.gameObject.SetActive(false);
+        }
+
+        if (_view != null)
+        {
+            _view.gameObject.SetActive(false);
         }
     }
 
@@ -89,7 +114,7 @@ public class Pause_GameState : IGameState
         // ЭТОТ ЛОГ ОБЯЗАН ПОЯВИТЬСЯ СЛЕДУЮЩИМ ЗА ЖЕЛТЫМ
         Debug.Log("<color=cyan>[Pause State] МЕТОД HandleRestart УСПЕШНО СРАБОТАЛ!</color>");
 
-        if (_view == null || _view.CanvasGroup == null)
+        if (_view == null || _view.MainCanvasGroup == null)
         {
             Debug.LogError("[Pause State] Ошибка: _view или CanvasGroup равны null!");
             return;
@@ -98,7 +123,7 @@ public class Pause_GameState : IGameState
         if (_currentLevelData == null)
         {
             Debug.LogError("[Pause State] Ошибка: _currentLevelData равен null! См. конструктор стейта.");
-            _view.CanvasGroup.SetInputActive(true);
+            _view.MainCanvasGroup.SetInputActive(true);
             return;
         }
 
@@ -111,7 +136,7 @@ public class Pause_GameState : IGameState
         if (freshLevelData == null)
         {
             Debug.LogError($"<color=red>[Pause State] ОШИБКА ПУТИ: Не удалось найти ассет по пути '{dynamicPath}'. Проверьте имя в паблике Resources!</color>");
-            _view.CanvasGroup.SetInputActive(true);
+            _view.MainCanvasGroup.SetInputActive(true);
             return;
         }
 
@@ -119,7 +144,7 @@ public class Pause_GameState : IGameState
 
         Time.timeScale = 1f;
 
-        _view.CanvasGroup.SetInputActive(false);
+        _view.MainCanvasGroup.SetInputActive(false);
 
         _view.Hide(() =>
         {
@@ -146,10 +171,10 @@ public class Pause_GameState : IGameState
     {
         if (_view == null) return;
 
-        _view.CanvasGroup.SetInputActive(false);
+        _view.MainCanvasGroup.SetInputActive(false);
         _view.Hide(() =>
         {
-            if (_stateService == null || _sceneLoader == null) { _view.CanvasGroup.SetInputActive(true); return; }
+            if (_stateService == null || _sceneLoader == null) { _view.MainCanvasGroup.SetInputActive(true); return; }
 
             IGameStateService cachedStateService = _stateService;
             ISceneLoader cachedSceneLoader = _sceneLoader;
@@ -164,5 +189,24 @@ public class Pause_GameState : IGameState
             });
         });
     }
-}
+    private void HandleSettingsSelected()
+    {
+        if (_settingsWindowView == null || _view == null) return;
+        _settingsWindowView.Close(() =>
+        {
+            _settingsWindowView.gameObject.SetActive(false);
+            _view.AnimateIn(() => { _view.MainCanvasGroup.SetInputActive(true); });
+        });
+    }
+
+    private void HandleSettingsClosed()
+    {
+        if (_settingsWindowView == null || _view == null) return;
+        _settingsWindowView.Close(() =>
+        {
+            _settingsWindowView.gameObject.SetActive(false);
+            _view.AnimateIn(() => { _view.MainCanvasGroup.SetInputActive(true); });
+        });
+    }
+} 
 
