@@ -7,8 +7,12 @@ public class Racing_Gameplay_View : BaseMenuView
     [SerializeField] private Joystick goJoystickImage;
     [SerializeField] private Button pauseButton;
 
+    [SerializeField] private CameraFollow3D cameraFollow;
+
     public event Action<Vector2> OnJoystickInputChanged;
     public event Action OnPauseClicked;
+
+    public CameraFollow3D CameraFollow => cameraFollow;
     protected override void Awake()
     {
         if (MainCanvasGroup == null || goJoystickImage == null)

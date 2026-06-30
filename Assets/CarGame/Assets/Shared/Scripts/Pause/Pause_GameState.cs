@@ -161,7 +161,7 @@ public class Pause_GameState : BaseMenuView, IGameState
                 if (cachedStateService == null || cachedSceneLoader == null) return;
 
                 Debug.Log("<color=orange>[Pause State Callback] Новая сцена успешно загружена!</color>");
-                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, freshLevelData);
+                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, freshLevelData, null, null);
                 cachedStateService.ChangeState(freshGameplayState);
             });
         });

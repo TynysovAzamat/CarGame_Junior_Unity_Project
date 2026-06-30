@@ -19,11 +19,13 @@ public class Racing_Gameplay_GameState : BaseMenuView, IGameState
     private GameObject _spawnedTrack;
     private CarController _spawnedCar;
     private SettingsWindowView _settingsView;
-    public Racing_Gameplay_GameState(IGameStateService stateService, ISceneLoader sceneLoader, RacingLevelData levelData)
+    public Racing_Gameplay_GameState(IGameStateService stateService, ISceneLoader sceneLoader, RacingLevelData levelData, Racing_Gameplay_Model model, Racing_Gameplay_View view)
     {
         _stateService = stateService;
         _sceneLoader = sceneLoader;
         _levelData = levelData;
+        _model = model;
+        _view = view;
     }
 
     public void Enter()
@@ -129,6 +131,7 @@ public class Racing_Gameplay_GameState : BaseMenuView, IGameState
 
         _spawnedCar.InjectModel(_model);
 
+        if (_model != null) _model.OnPlayerSpawned += HandlePlayerSpawned;
         if (_view != null) _view.OnJoystickInputChanged += HandleJoystickInputChanged;
         if (_model != null) _model.OnMovementCalculated += HandleMovementCalculated;
         if (_model != null) _model.OnRaceFinished += HandleRaceFinished;
@@ -141,6 +144,7 @@ public class Racing_Gameplay_GameState : BaseMenuView, IGameState
     {
         // провер€ем класс, чтобы он не был пустым
         // и удал€ем с сцены
+        if (_model != null) _model.OnPlayerSpawned -= HandlePlayerSpawned;
         if (_view != null) _view.OnJoystickInputChanged -= HandleJoystickInputChanged;
         if (_model != null) _model.OnMovementCalculated -= HandleMovementCalculated;
         if (_model != null) _model.OnRaceFinished -= HandleRaceFinished;
@@ -234,7 +238,7 @@ public class Racing_Gameplay_GameState : BaseMenuView, IGameState
         Time.timeScale = 1f;
         if (_pauseView != null) Object.Destroy(_pauseView.gameObject);
 
-        _stateService.ChangeState(new Racing_Gameplay_GameState(_stateService, _sceneLoader, _levelData));
+        _stateService.ChangeState(new Racing_Gameplay_GameState(_stateService, _sceneLoader, _levelData, null, null));
     }
     private void UnsubscribePauseEvents()
     {
@@ -289,5 +293,10 @@ public class Racing_Gameplay_GameState : BaseMenuView, IGameState
         }
 
         winMenuScript.Init(_stateService, _sceneLoader, _levelData);
+    }
+
+    private void HandlePlayerSpawned(Transform playerTransform, CarController carController)
+    {
+        _view.CameraFollow.Init(playerTransform, carController);
     }
 }

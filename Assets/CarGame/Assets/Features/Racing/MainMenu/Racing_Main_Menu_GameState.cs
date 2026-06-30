@@ -134,7 +134,7 @@ public class Racing_Main_Menu_GameState : BaseMenuView, IGameState
 
                 _sceneLoader.LoadScene("Gameplay", () =>
                 {
-                    var gameplayState = new Racing_Gameplay_GameState(_stateService, _sceneLoader, selectedLevelData);
+                    var gameplayState = new Racing_Gameplay_GameState(_stateService, _sceneLoader, selectedLevelData, null, null);
                     _stateService.ChangeState(gameplayState);
                 });
             });
@@ -143,7 +143,7 @@ public class Racing_Main_Menu_GameState : BaseMenuView, IGameState
         {
             _sceneLoader.LoadScene("Gameplay", () =>
             {
-                var gameplayState = new Racing_Gameplay_GameState(_stateService, _sceneLoader, selectedLevelData);
+                var gameplayState = new Racing_Gameplay_GameState(_stateService, _sceneLoader, selectedLevelData, null, null);
                 _stateService.ChangeState(gameplayState);
             });
         }

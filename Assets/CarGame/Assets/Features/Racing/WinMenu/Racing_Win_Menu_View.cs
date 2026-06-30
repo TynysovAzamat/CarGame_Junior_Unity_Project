@@ -75,7 +75,7 @@ public class Racing_Win_Menu_View : BaseMenuView
 
                 Debug.Log("[WinMenu Callback] Чистая сцена загружена. Создаем новый стейт гонки.");
 
-                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, freshLevelData);
+                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, freshLevelData, null, null);
 
                 cachedStateService.ChangeState(freshGameplayState);
             });
@@ -113,7 +113,7 @@ public class Racing_Win_Menu_View : BaseMenuView
             {
                 Debug.Log("[WinMenu Callback] Переход на следующий уровень. Активируем GameplayState.");
 
-                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, nextLevelData);
+                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, nextLevelData, null, null);
                 cachedStateService.ChangeState(freshGameplayState);
             });
         });
@@ -150,9 +150,9 @@ public class Racing_Win_Menu_View : BaseMenuView
             return;
         }
 
-        _sceneLoader.LoadScene("Menu", () =>
+        sceneLoader.LoadScene("Menu", () =>
         {
-            var freshMenuState = new Racing_Main_Menu_GameState(_stateService, _sceneLoader);
+            var freshMenuState = new Racing_Main_Menu_GameState(stateService, sceneLoader);
             _stateService.ChangeState(freshMenuState);
         });
     }

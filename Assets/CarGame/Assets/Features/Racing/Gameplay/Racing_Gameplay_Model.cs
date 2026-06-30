@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class Racing_Gameplay_Model
 {
-    public float BaseSpeed { get; private set; }
-    public float MaxTurnSpeed { get; private set; }
-    public float CurrentSpeedModifier = 1f;
-    public bool IsGameFinished { get; private set; } = false;
-
-    private float _currentJoystickY = 0f;
     public float CalculatedForwardSpeed { get; private set; }
     public float CalculatedTurnInput { get; private set; }
+    public float BaseSpeed { get; private set; }
+    public float MaxTurnSpeed { get; private set; }
+
+    public float CurrentSpeedModifier = 1f;
+    private float _currentJoystickY = 0f;
+
+    public bool IsGameFinished { get; private set; } = false;
+
+    public Transform PlayerTransform {  get; private set; }
+    public CarController CarController { get; private set; }
 
     public event Action<float, float> OnMovementCalculated;
     public event Action OnRaceFinished;
-
+    public event Action<Transform, CarController> OnPlayerSpawned;
+    public event Action<float> OnSpeedChanged;
     public Racing_Gameplay_Model(CarConfigData selctedCarConfig)
     {
         if (selctedCarConfig != null)
@@ -33,6 +38,22 @@ public class Racing_Gameplay_Model
         CurrentSpeedModifier = 1f;
         _currentJoystickY = 0f;
     }
+
+    public void SetPlayer(GameObject playerObject)
+    {
+        if (playerObject == null) return;
+
+        PlayerTransform = playerObject.transform;
+        CarController = playerObject.GetComponent<CarController>();
+
+        OnPlayerSpawned?.Invoke(PlayerTransform, CarController);
+    }
+
+    public void UpdateSpeed(float currentSpeed)
+    {
+        OnSpeedChanged?.Invoke(currentSpeed);
+    }
+
     private void RecalculateSpeed()
     {
         if (IsGameFinished)
