@@ -597,6 +597,7 @@ GameObject:
   - component: {fileID: 52976055477595690}
   - component: {fileID: 2653934826567217999}
   - component: {fileID: 1505608467326330783}
+  - component: {fileID: 3210781731272649947}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -697,6 +698,14 @@ MonoBehaviour:
   _minSpeed: 7
   _maxSpeed: 25
   _fovSmoothSpeed: 3
+--- !u!81 &3210781731272649947
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4319226852140549489}
+  m_Enabled: 1
 --- !u!1 &4355099831245950152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,3 +1427,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSpeed: 0
   currentTurnSpeed: 0
+  _surfaceModifier: 1

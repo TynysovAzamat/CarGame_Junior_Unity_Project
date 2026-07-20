@@ -743,23 +743,23 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: DOTWEEN;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;ODIN_VALIDATOR_3_2;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3;UNITEXT
-    EmbeddedLinux: DOTWEEN
-    GameCoreScarlett: DOTWEEN
-    GameCoreXboxOne: DOTWEEN
-    LinuxHeadlessSimulation: DOTWEEN
-    Nintendo Switch: DOTWEEN
-    PS4: DOTWEEN
-    PS5: DOTWEEN
-    QNX: DOTWEEN
-    Stadia: DOTWEEN
-    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;ODIN_VALIDATOR_3_2;ODIN_VALIDATOR_3_3;DOTWEEN
-    VisionOS: DOTWEEN
-    WebGL: DOTWEEN
-    Windows Store Apps: DOTWEEN
-    XboxOne: DOTWEEN
-    iPhone: DOTWEEN
-    tvOS: DOTWEEN
+    Android: DOTWEEN;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;ODIN_VALIDATOR_3_2;ODIN_VALIDATOR_3_3;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3;UNITEXT;ODIN_INSPECTOR;BCG_SGS
+    EmbeddedLinux: DOTWEEN;BCG_SGS
+    GameCoreScarlett: DOTWEEN;BCG_SGS
+    GameCoreXboxOne: DOTWEEN;BCG_SGS
+    LinuxHeadlessSimulation: DOTWEEN;BCG_SGS
+    Nintendo Switch: DOTWEEN;BCG_SGS
+    PS4: DOTWEEN;BCG_SGS
+    PS5: DOTWEEN;BCG_SGS
+    QNX: DOTWEEN;BCG_SGS
+    Stadia: DOTWEEN;BCG_SGS
+    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;ODIN_VALIDATOR_3_2;ODIN_VALIDATOR_3_3;DOTWEEN;BCG_SGS
+    VisionOS: DOTWEEN;BCG_SGS
+    WebGL: DOTWEEN;BCG_SGS
+    Windows Store Apps: DOTWEEN;BCG_SGS
+    XboxOne: DOTWEEN;BCG_SGS
+    iPhone: DOTWEEN;BCG_SGS
+    tvOS: DOTWEEN;BCG_SGS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -867,7 +867,7 @@ PlayerSettings:
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 3
-  activeInputHandler: 2
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
   cloudProjectId: 47339013-8abc-411b-8e0c-0b1da4960165
   framebufferDepthMemorylessMode: 0

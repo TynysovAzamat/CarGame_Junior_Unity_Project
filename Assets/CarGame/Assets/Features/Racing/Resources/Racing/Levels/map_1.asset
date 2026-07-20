@@ -15,6 +15,6 @@ MonoBehaviour:
   levelID: 1
   levelName: Map1
   previewIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  levelMusic: {fileID: 8300000, guid: 86ca28a41f1dec54cbd6a47f799fe2fa, type: 3}
   trackPrefab: {fileID: 6579690792213078693, guid: fff0f65e38334b342bade3ee0c130d19, type: 3}
-  baseCarSpeed: 10
   targetTime: 60

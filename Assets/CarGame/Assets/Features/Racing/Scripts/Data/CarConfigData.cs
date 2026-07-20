@@ -14,7 +14,7 @@ namespace Assets.CarGame.Assets.Features.Racing.Scripts.Data
         [SerializeField] private string carName;
 
         [Header("Visuals & Assets")]
-        [SerializeField] private GameObject prefab;
+        [SerializeField] private CarController prefab;
         [SerializeField] private Sprite UiSprite;
 
         [Header("Car Performance")]
@@ -24,7 +24,7 @@ namespace Assets.CarGame.Assets.Features.Racing.Scripts.Data
         // использование характеристик машины в других класса
         public string CarId => carId;
         public string CarName => carName;
-        public GameObject CarPrefab => prefab;
+        public CarController CarPrefab => prefab;
         public Sprite CarUiSprite => UiSprite;
 
         public float MaxSpeed => maxSpeed;

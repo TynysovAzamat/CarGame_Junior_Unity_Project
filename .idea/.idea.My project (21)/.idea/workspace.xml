@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4dd14fa7-154e-4ece-9cef-5e62740af6bb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Core/Bootstrap/GameBootstrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CarGame/Assets/Core/Bootstrap/GameBootstrapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Core/Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Core/Scripts/BaseLevelData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Core/Scripts/BaseLevelData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Core/Services/Localization/LocalizationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CarGame/Assets/Core/Services/Localization/LocalizationManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Racing_Gameplay_GameState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Racing_Gameplay_GameState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Racing_Gameplay_Model.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Racing_Gameplay_Model.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Racing_Gameplay_View.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Racing_Gameplay_View.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Simulation.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Simulation/CameraFollow3D.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Simulation/CameraFollow3D.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Simulation/CarController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Simulation/CarController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Simulation/SurfaceZoneTrigger.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Gameplay/Simulation/SurfaceZoneTrigger.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/MainMenu.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/MainMenu/Racing_Main_Menu_GameState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/MainMenu/Racing_Main_Menu_GameState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/MainMenu/Racing_Main_Menu_Model.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/MainMenu/Racing_Main_Menu_Model.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/MainMenu/Racing_Main_Menu_View.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/MainMenu/Racing_Main_Menu_View.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/MainMenu/Ui.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/MainMenu/Ui/CarCarousel_Ui.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/MainMenu/Ui/CarCarousel_Ui.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Resources/Racing/Levels/Map1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Resources/Racing/Levels/Map1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Resources/Racing/Prefabs/UI_Item_Button.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Resources/Racing/Prefabs/UI_Item_Button.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Resources/Racing/Prefabs/UI_MainMenu_Canvas.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Resources/Racing/Prefabs/UI_MainMenu_Canvas.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/Scripts/Ui.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/WinMenu.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/WinMenu/Racing_Win_Menu_View.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Features/Racing/WinMenu/Racing_Win_Menu_View.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Shared/Resources/Shared/Prefabs/Ui_Settings_Canvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CarGame/Assets/Shared/Resources/Shared/Prefabs/Ui_Settings_Canvas.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Shared/Scripts/Pause/Pause_GameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CarGame/Assets/Shared/Scripts/Pause/Pause_GameState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Shared/Scripts/Ui/AudioSettingsPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CarGame/Assets/Shared/Scripts/Ui/AudioSettingsPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CarGame/Assets/Shared/Scripts/Ui/Text.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="3FxEJ93G2Oc3mbMXIeWgpJCVPbM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4dd14fa7-154e-4ece-9cef-5e62740af6bb" name="Changes" comment="" />
+      <created>1783008248910</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1783008248910</updated>
+      <workItem from="1783008248912" duration="29000" />
+    </task>
+    <servers />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityProjectDiscoverer">
+    <option name="unityProject" value="true" />
+    <option name="unityProjectFolder" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

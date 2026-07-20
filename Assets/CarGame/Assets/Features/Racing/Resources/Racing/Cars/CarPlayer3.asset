@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carId: CarPlayer3
   carName: Purple Guy
-  prefab: {fileID: 9090107892712831400, guid: 9fcdeb8df39495146aa2cf29fd8140f8, type: 3}
+  prefab: {fileID: 713405067952789718, guid: 9fcdeb8df39495146aa2cf29fd8140f8, type: 3}
   UiSprite: {fileID: 21300000, guid: 50065b4a1f693ce4592d1e5214b07799, type: 3}
-  maxSpeed: 30
-  maxTurnSpeed: 100
+  maxSpeed: 7
+  maxTurnSpeed: 15

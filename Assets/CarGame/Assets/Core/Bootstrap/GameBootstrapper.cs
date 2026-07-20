@@ -10,12 +10,17 @@ public class GameBootstrapper : MonoBehaviour, IGameStateService, ISceneLoader
     {
         DontDestroyOnLoad(gameObject);
 
-        InitializeDefaultAudioSettings();
+        if (AudioSystem.Instance == null)
+        {
+            var audioSystemPrefab = Resources.Load<AudioSystem> ("Shared/Audio/AudioSystem");
+
+            if (audioSystemPrefab != null) Instantiate (audioSystemPrefab);
+        }
     }
     private void Start()
     {
         //создаём начальное состояние игры
-        ChangeState(new Racing_Main_Menu_GameState(this, this));
+        ChangeState(new Main_Menu_GameState(this, this));
     }
     public void ChangeState(IGameState newState)
     {
@@ -68,14 +73,5 @@ public class GameBootstrapper : MonoBehaviour, IGameStateService, ISceneLoader
             
             onSceneLoaded?.Invoke();
         };
-    }
-
-    private void InitializeDefaultAudioSettings()
-    {
-        if (!PlayerPrefs.HasKey("Volume_Master")) PlayerPrefs.SetFloat("Volume_Master", 1f);
-        if (!PlayerPrefs.HasKey("Volume_Music")) PlayerPrefs.SetFloat("Volume_Music", 0.5f);
-        if (!PlayerPrefs.HasKey("Volume_Sounds")) PlayerPrefs.SetFloat("Volume_Sounds", 0.5f);
-
-        PlayerPrefs.Save();
     }
 }

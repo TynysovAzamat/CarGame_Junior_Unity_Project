@@ -277,11 +277,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1832647286185124952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce8c99bfbbcc5914ab2d52ee42d08522, type: 3}
+  m_Script: {fileID: 11500000, guid: e833bbf6cb2a7ea47a9fb5934d15e965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishFont: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  russianFont: {fileID: 11400000, guid: 52ab8b4c9f916d1429e96a05dad49bc6, type: 2}
+  englishFont: {fileID: 0}
+  russianFont: {fileID: 0}
   _dynamicSpeed: 0
   _dynamicTurnSpeed: 0
   _hasDynamicStats: 0
@@ -430,11 +430,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1854496718809167436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce8c99bfbbcc5914ab2d52ee42d08522, type: 3}
+  m_Script: {fileID: 11500000, guid: e833bbf6cb2a7ea47a9fb5934d15e965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishFont: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  russianFont: {fileID: 11400000, guid: 52ab8b4c9f916d1429e96a05dad49bc6, type: 2}
+  englishFont: {fileID: 0}
+  russianFont: {fileID: 0}
   _dynamicSpeed: 0
   _dynamicTurnSpeed: 0
   _hasDynamicStats: 0
@@ -585,11 +585,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2174093390220764311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce8c99bfbbcc5914ab2d52ee42d08522, type: 3}
+  m_Script: {fileID: 11500000, guid: e833bbf6cb2a7ea47a9fb5934d15e965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishFont: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  russianFont: {fileID: 11400000, guid: 52ab8b4c9f916d1429e96a05dad49bc6, type: 2}
+  englishFont: {fileID: 0}
+  russianFont: {fileID: 0}
   _dynamicSpeed: 0
   _dynamicTurnSpeed: 0
   _hasDynamicStats: 0
@@ -980,11 +980,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3387763042581467021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce8c99bfbbcc5914ab2d52ee42d08522, type: 3}
+  m_Script: {fileID: 11500000, guid: e833bbf6cb2a7ea47a9fb5934d15e965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishFont: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  russianFont: {fileID: 11400000, guid: 52ab8b4c9f916d1429e96a05dad49bc6, type: 2}
+  englishFont: {fileID: 0}
+  russianFont: {fileID: 0}
   _dynamicSpeed: 0
   _dynamicTurnSpeed: 0
   _hasDynamicStats: 0

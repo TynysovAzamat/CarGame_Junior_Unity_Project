@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carId: CarPlayer2
   carName: Red Heavy
-  prefab: {fileID: 9090107892712831400, guid: 8f9fcdccfc7e05a44b03a89f4dfb5e97, type: 3}
+  prefab: {fileID: 713405067952789718, guid: 8f9fcdccfc7e05a44b03a89f4dfb5e97, type: 3}
   UiSprite: {fileID: 21300000, guid: 5d1647dce7dbd3c459f4b3fbbc88742a, type: 3}
-  maxSpeed: 15
-  maxTurnSpeed: 200
+  maxSpeed: 3
+  maxTurnSpeed: 20

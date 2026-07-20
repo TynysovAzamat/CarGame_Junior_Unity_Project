@@ -14,4 +14,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/CarGame/Assets/Core/Scenes/Gameplay.unity
     guid: d84a594d03202184e999c89ef7d4a50f
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 73a4af9c9388a7b4d812585db5fad18a, type: 3}

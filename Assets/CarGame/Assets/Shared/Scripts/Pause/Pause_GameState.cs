@@ -1,5 +1,6 @@
 using Assets.CarGame.Assets.Features.Racing.Scripts.Data;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Pause_GameState : BaseMenuView, IGameState 
 {
@@ -12,6 +13,7 @@ public class Pause_GameState : BaseMenuView, IGameState
     private Pause_GameState_Model _model;
     private Pause_Menu_View _view;
     private SettingsWindowView _settingsWindowView;
+
     public Pause_GameState(IGameStateService stateService, ISceneLoader sceneLoader,
      RacingLevelData currentLevelData, IGameState previousGameplayState, Pause_Menu_View view, SettingsWindowView settingsWindowView)
     {
@@ -27,6 +29,12 @@ public class Pause_GameState : BaseMenuView, IGameState
     {
         Time.timeScale = 0f;
 
+        if (InputSystem.actions != null)
+        {
+            InputSystem.actions.FindActionMap ("Player")?.Disable ();
+            InputSystem.actions.FindActionMap ("UI")?.Enable ();
+        }
+
         _model = new Pause_GameState_Model();
 
         var prefab = Resources.Load<GameObject>("Shared/Prefabs/UI_PauseMenu_Canvas");
@@ -36,10 +44,10 @@ public class Pause_GameState : BaseMenuView, IGameState
             return;
         }
 
-        var instance = UnityEngine.Object.Instantiate(prefab);
+        GameObject instance = UnityEngine.Object.Instantiate(prefab);
         _view = instance.GetComponent<Pause_Menu_View>();
 
-        GameObject settingsPrefabObject = Resources.Load<GameObject>("Shared/Prefabs/Ui_Settings_Canvas");
+        var settingsPrefabObject = Resources.Load<GameObject>("Shared/Prefabs/Ui_Settings_Canvas");
         if (settingsPrefabObject != null)
         {
             GameObject spawnedSettingsInstance = UnityEngine.Object.Instantiate(settingsPrefabObject);
@@ -100,9 +108,16 @@ public class Pause_GameState : BaseMenuView, IGameState
     {
         if (_view != null)
         {
-            _view.Hide(() =>
+            _view.Hide (() =>
             {
                 Time.timeScale = 1f;
+
+                if (InputSystem.actions != null)
+                {
+                    InputSystem.actions.FindActionMap ("UI")?.Disable ();
+                    InputSystem.actions.FindActionMap ("Player")?.Enable ();
+                }
+
                 UnityEngine.Object.Destroy(_view.gameObject);
                 _stateService.ChangeState(_previousGameplayState);
             });
@@ -131,7 +146,7 @@ public class Pause_GameState : BaseMenuView, IGameState
         string dynamicPath = $"Racing/Levels/Map_{currentLevelId}";
 
         Debug.Log($"[Pause State] Загружаю карту из ресурсов по пути: {dynamicPath}");
-        RacingLevelData freshLevelData = Resources.Load<RacingLevelData>(dynamicPath);
+        var freshLevelData = Resources.Load<RacingLevelData>(dynamicPath);
 
         if (freshLevelData == null)
         {
@@ -155,13 +170,14 @@ public class Pause_GameState : BaseMenuView, IGameState
             IGameStateService cachedStateService = _stateService;
             ISceneLoader cachedSceneLoader = _sceneLoader;
 
+
             Debug.Log("[Pause State] Время идет, запускаем чистую загрузку сцены...");
             cachedSceneLoader.LoadScene("Gameplay", () =>
             {
                 if (cachedStateService == null || cachedSceneLoader == null) return;
 
                 Debug.Log("<color=orange>[Pause State Callback] Новая сцена успешно загружена!</color>");
-                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, freshLevelData, null, null);
+                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, freshLevelData);
                 cachedStateService.ChangeState(freshGameplayState);
             });
         });
@@ -184,7 +200,7 @@ public class Pause_GameState : BaseMenuView, IGameState
 
             cachedSceneLoader.LoadScene("Menu", () =>
             {
-                var freshMenuState = new Racing_Main_Menu_GameState(cachedStateService, cachedSceneLoader);
+                var freshMenuState = new Main_Menu_GameState(cachedStateService, cachedSceneLoader);
                 cachedStateService.ChangeState(freshMenuState);
             });
         });
