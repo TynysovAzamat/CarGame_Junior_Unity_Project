@@ -597,7 +597,10 @@ GameObject:
   - component: {fileID: 52976055477595690}
   - component: {fileID: 2653934826567217999}
   - component: {fileID: 1505608467326330783}
+<<<<<<< HEAD
   - component: {fileID: 3210781731272649947}
+=======
+>>>>>>> 6a59bfe (making the smooth camera follow, camera now softlymove towards the player, when contacting(colliding) an obstacle)
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -698,6 +701,7 @@ MonoBehaviour:
   _minSpeed: 7
   _maxSpeed: 25
   _fovSmoothSpeed: 3
+<<<<<<< HEAD
 --- !u!81 &3210781731272649947
 AudioListener:
   m_ObjectHideFlags: 0
@@ -706,6 +710,8 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4319226852140549489}
   m_Enabled: 1
+=======
+>>>>>>> 6a59bfe (making the smooth camera follow, camera now softlymove towards the player, when contacting(colliding) an obstacle)
 --- !u!1 &4355099831245950152
 GameObject:
   m_ObjectHideFlags: 0
