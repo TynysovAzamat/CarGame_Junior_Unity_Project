@@ -16,7 +16,10 @@ public class AudioSettingsPanel : SettingsPanelBase
         ClearListeners();
 
         masterSlider.onValueChanged.AddListener(val => OnMasterVolumeChanged?.Invoke(val));
-        musicSlider.onValueChanged.AddListener(val => OnMusicVolumeChanged?.Invoke(val));
+        musicSlider.onValueChanged.AddListener (val => {
+            Debug.Log ($"[Slider] Music slider raw value: {val}");
+            OnMusicVolumeChanged?.Invoke (val);
+        });
         soundsSlider.onValueChanged.AddListener(val => OnSoundsVolumeChanged?.Invoke(val));
     }
     public void SetupSliders(float master, float music, float sounds)

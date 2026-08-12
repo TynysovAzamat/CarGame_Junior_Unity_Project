@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carId: CarPlayer
   carName: Blue Bond
-  prefab: {fileID: 713405067952789718, guid: 239c699810178c342ba6b7058d3bfd40, type: 3}
+  prefab: {fileID: 0}
   UiSprite: {fileID: 21300000, guid: bda3609ec060c6644bbaa117328698ed, type: 3}
   maxSpeed: 5
   maxTurnSpeed: 30

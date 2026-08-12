@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1100525847513925454}
-  - component: {fileID: 4932890676370297929}
   - component: {fileID: 6435811210037245395}
+  - component: {fileID: 7650333328855014815}
   m_Layer: 0
   m_Name: AudioSystem
   m_TagString: Untagged
@@ -33,21 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4932890676370297929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5806497804644247627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f7a29a233225549a7a23f71d1b9262, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _menuMusic: {fileID: 8300000, guid: 49a64fc45bd04c74f87f5f9e93d769ea, type: 3}
-  _map1Music: {fileID: 8300000, guid: c8382338fb85a8c43a2cc832d698e0b5, type: 3}
-  _audioMixer: {fileID: 0}
 --- !u!82 &6435811210037245395
 AudioSource:
   m_ObjectHideFlags: 0
@@ -57,12 +42,12 @@ AudioSource:
   m_GameObject: {fileID: 5806497804644247627}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -561407961519420043, guid: fd2fc612ee270bc498888505186be018, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -144,3 +129,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7650333328855014815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5806497804644247627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f7a29a233225549a7a23f71d1b9262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioMixer: {fileID: 24100000, guid: fd2fc612ee270bc498888505186be018, type: 2}
+  _menuMusic: {fileID: 8300000, guid: 49a64fc45bd04c74f87f5f9e93d769ea, type: 3}
+  _sfxMixerGroup: {fileID: 1807862765017874439, guid: fd2fc612ee270bc498888505186be018, type: 2}
+  _sfxPoolSize: 12
+  _hoverSfxCooldown: 0.07

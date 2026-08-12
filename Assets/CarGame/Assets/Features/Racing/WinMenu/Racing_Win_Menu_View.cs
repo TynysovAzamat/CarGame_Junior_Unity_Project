@@ -1,4 +1,5 @@
 using Assets.CarGame.Assets.Features.Racing.Scripts.Data;
+using Assets.CarGame.Assets.Features.Racing.Scripts.State;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -75,7 +76,7 @@ public class Racing_Win_Menu_View : BaseMenuView
 
                 Debug.Log("[WinMenu Callback] Чистая сцена загружена. Создаем новый стейт гонки.");
 
-                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, freshLevelData, null, null);
+                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, freshLevelData);
 
                 cachedStateService.ChangeState(freshGameplayState);
             });
@@ -99,7 +100,7 @@ public class Racing_Win_Menu_View : BaseMenuView
                 Destroy(gameObject);
 
                 menuSceneLoader.LoadScene("Menu", () => {
-                    menuStateService.ChangeState(new Racing_Main_Menu_GameState(menuStateService, menuSceneLoader));
+                    menuStateService.ChangeState(new Main_Menu_GameState(menuStateService, menuSceneLoader));
                 });
                 return;
             }
@@ -113,7 +114,7 @@ public class Racing_Win_Menu_View : BaseMenuView
             {
                 Debug.Log("[WinMenu Callback] Переход на следующий уровень. Активируем GameplayState.");
 
-                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, nextLevelData, null, null);
+                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, nextLevelData);
                 cachedStateService.ChangeState(freshGameplayState);
             });
         });
@@ -152,7 +153,7 @@ public class Racing_Win_Menu_View : BaseMenuView
 
         sceneLoader.LoadScene("Menu", () =>
         {
-            var freshMenuState = new Racing_Main_Menu_GameState(stateService, sceneLoader);
+            var freshMenuState = new Main_Menu_GameState(stateService, sceneLoader);
             _stateService.ChangeState(freshMenuState);
         });
     }

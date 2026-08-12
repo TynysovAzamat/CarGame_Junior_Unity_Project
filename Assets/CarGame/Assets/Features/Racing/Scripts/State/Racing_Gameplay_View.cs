@@ -2,26 +2,19 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
+using Assets.CarGame.Assets.Features.Racing.Scripts.Simulation;
 public class Racing_Gameplay_View : BaseMenuView
 {
 
-<<<<<<< HEAD:Assets/CarGame/Assets/Features/Racing/Scripts/State/Racing_Gameplay_View.cs
-
     [Header ("Base Menu Ui")]
     [SerializeField] private Button pauseButton;
-    [SerializeField] private CameraFollow3D cameraFollow;
+    public CameraFollow3D cameraFollow;
 
-    public CameraFollow3D CameraFollow => cameraFollow;
     public event Action<Vector2> OnInputVectorChanged;
-=======
-    [SerializeField] private CameraFollow3D cameraFollow;
 
     public event Action<Vector2> OnJoystickInputChanged;
->>>>>>> 6a59bfe (making the smooth camera follow, camera now softlymove towards the player, when contacting(colliding) an obstacle):Assets/CarGame/Assets/Features/Racing/Gameplay/Racing_Gameplay_View.cs
     public event Action OnPauseClicked;
 
-    public CameraFollow3D CameraFollow => cameraFollow;
     protected override void Awake()
     {
 

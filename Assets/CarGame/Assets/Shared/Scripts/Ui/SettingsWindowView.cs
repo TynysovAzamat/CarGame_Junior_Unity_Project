@@ -7,67 +7,73 @@ public class SettingsWindowView : BaseMenuView
 {
     public event Action OnClosePressed;
 
-    [Header("Components")]
+    [Header ("Components")]
     [SerializeField] private Button closeButton;
 
-    [Header("Tabs & Panels")]
+    [Header ("Tabs & Panels")]
     [SerializeField] private GameObject mainTabsContainer;
     [SerializeField] private string defaultPanelId = "Settings";
     [SerializeField] private List<SettingsTabButton> tabButtons;
     [SerializeField] private List<SettingsPanelBase> settingsPanels;
 
-    private Dictionary<string, SettingsPanelBase> panelsDictionary = new Dictionary<string, SettingsPanelBase>();
+    private Dictionary<string, SettingsPanelBase> panelsDictionary = new Dictionary<string, SettingsPanelBase> ();
     private SettingsPanelBase currentActivePanel = null;
     private Pause_GameState_Model _pauseModel;
 
-    protected override void Awake()
-    {
-        base.Awake();
+    private AudioSettings_GameState _audioState;
+    private bool _audioStateEntered = false;
 
-        DOTween.Init();
+    protected override void Awake ()
+    {
+        base.Awake ();
+
+        DOTween.Init ();
 
         DOTween.defaultUpdateType = UpdateType.Normal;
         DOTween.defaultTimeScaleIndependent = true;
 
         if (closeButton != null)
         {
-            closeButton.onClick.RemoveAllListeners();
-            closeButton.onClick.AddListener(() => OnClosePressed?.Invoke());
+            closeButton.onClick.RemoveAllListeners ();
+            closeButton.onClick.AddListener (() => OnClosePressed?.Invoke ());
         }
 
-        panelsDictionary.Clear();
+        panelsDictionary.Clear ();
         foreach (var panel in settingsPanels)
         {
-            if (panel != null && !panelsDictionary.ContainsKey(panel.PanelId))
+            if (panel != null && !panelsDictionary.ContainsKey (panel.PanelId))
             {
-                panelsDictionary.Add(panel.PanelId, panel);
+                panelsDictionary.Add (panel.PanelId, panel);
+            }
+
+            if (panel is AudioSettingsPanel audioPanel && _audioState == null)
+            {
+                _audioState = new AudioSettings_GameState (audioPanel, new AudioSettings_Model ());
             }
         }
-
-        
     }
 
-    public void Init(Pause_GameState_Model model)
+    public void Init (Pause_GameState_Model model)
     {
         _pauseModel = model;
     }
 
-    public void Open(Action onComplete = null)
+    public void Open (Action onComplete = null)
     {
-        gameObject.SetActive(true);
+        gameObject.SetActive (true);
 
-        if (MainCanvasGroup != null) MainCanvasGroup.SetInputActive(true);
+        if (MainCanvasGroup != null) MainCanvasGroup.SetInputActive (true);
 
         foreach (var panel in settingsPanels)
         {
-            if (panel != null) 
+            if (panel != null)
             {
-                panel.InitializeData();
-                panel.HideInstant();
+                panel.InitializeData ();
+                panel.HideInstant ();
 
                 panel.OnCloseRequested -= HandlePanelBackRequest;
                 panel.OnCloseRequested += HandlePanelBackRequest;
-            } 
+            }
         }
 
         foreach (var tabButton in tabButtons)
@@ -81,87 +87,113 @@ public class SettingsWindowView : BaseMenuView
 
         currentActivePanel = null;
 
-        SwitchCategory(defaultPanelId);
+        SwitchCategory (defaultPanelId);
 
         if (MainCanvasGroup != null) MainCanvasGroup.alpha = 0f;
         if (MainRectTransform != null) MainRectTransform.localScale = Vector3.one * 0.5f;
-        if (MainCanvasGroup != null) MainCanvasGroup.DOFade(1f, 0.3f).SetUpdate(true);
+        if (MainCanvasGroup != null) MainCanvasGroup.DOFade (1f, 0.3f).SetUpdate (true);
 
         if (MainRectTransform != null)
         {
-            MainRectTransform.DOScale(Vector3.one, 0.25f)
-             .SetEase(Ease.OutBack)
-             .SetUpdate(true)
-             .OnComplete(() =>
+            MainRectTransform.DOScale (Vector3.one, 0.25f)
+             .SetEase (Ease.OutBack)
+             .SetUpdate (true)
+             .OnComplete (() =>
              {
-                 onComplete?.Invoke();
+                 onComplete?.Invoke ();
              });
         }
         else
         {
-            onComplete?.Invoke();
+            onComplete?.Invoke ();
         }
     }
 
-    public void Close(Action onComplete = null)
+    public void Close (Action onComplete = null)
     {
-        PlayerPrefs.Save();
+        ExitAudioStateIfNeeded ();
 
-        if (MainCanvasGroup != null) MainCanvasGroup.DOFade(0f, 0.2f).SetUpdate(true);
+        PlayerPrefs.Save ();
+
+        if (MainCanvasGroup != null) MainCanvasGroup.DOFade (0f, 0.2f).SetUpdate (true);
 
         if (MainRectTransform != null)
         {
-            MainRectTransform.DOScale(Vector3.one * 0.7f, 0.2f)
-                .SetEase(Ease.InBack)
-                .SetUpdate(true);
+            MainRectTransform.DOScale (Vector3.one * 0.7f, 0.2f)
+                .SetEase (Ease.InBack)
+                .SetUpdate (true);
         }
 
-        DOVirtual.DelayedCall(0.2f, () =>
+        DOVirtual.DelayedCall (0.2f, () =>
         {
-            gameObject.SetActive(false);
-            onComplete?.Invoke();
-        }).SetUpdate(true);
+            gameObject.SetActive (false);
+            onComplete?.Invoke ();
+        }).SetUpdate (true);
     }
-    private void HandlePanelBackRequest()
+
+    private void HandlePanelBackRequest ()
     {
+        ExitAudioStateIfNeeded ();
+
         if (currentActivePanel != null)
         {
-            currentActivePanel.Hide();
+            currentActivePanel.Hide ();
             currentActivePanel = null;
         }
 
         if (mainTabsContainer != null)
         {
-            mainTabsContainer.SetActive(true);
+            mainTabsContainer.SetActive (true);
         }
     }
-    private void SwitchCategory(string panelId)
+
+    private void SwitchCategory (string panelId)
     {
         if (panelId == "Settings")
         {
-            if (currentActivePanel != null) currentActivePanel.Hide();
+            ExitAudioStateIfNeeded ();
+
+            if (currentActivePanel != null) currentActivePanel.Hide ();
             currentActivePanel = null;
 
-            if (mainTabsContainer != null) mainTabsContainer.SetActive(true);
+            if (mainTabsContainer != null) mainTabsContainer.SetActive (true);
             return;
         }
 
-        if (!panelsDictionary.ContainsKey(panelId)) return;
+        if (!panelsDictionary.ContainsKey (panelId)) return;
 
         SettingsPanelBase targetPanel = panelsDictionary[panelId];
         if (currentActivePanel == targetPanel) return;
 
-        if (currentActivePanel != null) currentActivePanel.Hide();
+        if (currentActivePanel != targetPanel) ExitAudioStateIfNeeded ();
 
-        if (mainTabsContainer != null) mainTabsContainer.SetActive(false);
+        if (currentActivePanel != null) currentActivePanel.Hide ();
 
-        targetPanel.Show();
+        if (mainTabsContainer != null) mainTabsContainer.SetActive (false);
+
+        targetPanel.Show ();
         currentActivePanel = targetPanel;
+
+        if (targetPanel is AudioSettingsPanel && _audioState != null)
+        {
+            _audioState.Enter ();
+            _audioStateEntered = true;
+        }
+    }
+    private void ExitAudioStateIfNeeded ()
+    {
+        if (_audioStateEntered && _audioState != null)
+        {
+            _audioState.Exit ();
+            _audioStateEntered = false;
+        }
     }
 
-    private void OnDestroy()
+    private void OnDestroy ()
     {
-        closeButton.onClick.RemoveAllListeners();
+        ExitAudioStateIfNeeded ();
+
+        closeButton.onClick.RemoveAllListeners ();
         foreach (var panel in settingsPanels)
         {
             if (panel != null) panel.OnCloseRequested -= HandlePanelBackRequest;
@@ -173,4 +205,3 @@ public class SettingsWindowView : BaseMenuView
         }
     }
 }
-

@@ -1,4 +1,5 @@
 using Assets.CarGame.Assets.Features.Racing.Scripts.Data;
+using Assets.CarGame.Assets.Features.Racing.Scripts.State;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -177,7 +178,7 @@ public class Pause_GameState : BaseMenuView, IGameState
                 if (cachedStateService == null || cachedSceneLoader == null) return;
 
                 Debug.Log("<color=orange>[Pause State Callback] Новая сцена успешно загружена!</color>");
-                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, freshLevelData, null, null);
+                var freshGameplayState = new Racing_Gameplay_GameState(cachedStateService, cachedSceneLoader, freshLevelData);
                 cachedStateService.ChangeState(freshGameplayState);
             });
         });

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Assets.CarGame.Assets.Features.Racing.Scripts.Data;
+using Assets.CarGame.Assets.Features.Racing.Scripts.State;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -143,7 +144,7 @@ public class Main_Menu_GameState : BaseMenuView, IGameState
 
                 _sceneLoader.LoadScene("Gameplay", () =>
                 {
-                    var gameplayState = new Racing_Gameplay_GameState(_stateService, _sceneLoader, selectedLevelData, null, null);
+                    var gameplayState = new Racing_Gameplay_GameState(_stateService, _sceneLoader, selectedLevelData);
                     _stateService.ChangeState(gameplayState);
                 });
             });
@@ -152,7 +153,7 @@ public class Main_Menu_GameState : BaseMenuView, IGameState
         {
             _sceneLoader.LoadScene("Gameplay", () =>
             {
-                var gameplayState = new Racing_Gameplay_GameState(_stateService, _sceneLoader, selectedLevelData, null, null);
+                var gameplayState = new Racing_Gameplay_GameState(_stateService, _sceneLoader, selectedLevelData);
                 _stateService.ChangeState(gameplayState);
             });
         }

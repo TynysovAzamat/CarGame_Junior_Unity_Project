@@ -29,7 +29,7 @@ public class AudioSettings_GameState : IGameState
         _view.OnMasterVolumeChanged += _model.SetMasterVolume;
         _view.OnMusicVolumeChanged += _model.SetMusicVolume;
 
-        _model.OnMasterVolumeChanged += AudioEvents.RaiseMusicVolumeChanged;
+        _model.OnMasterVolumeChanged += AudioEvents.RaiseMasterVolumeChanged;
         _model.OnMusicVolumeChanged += AudioEvents.RaiseMusicVolumeChanged;
         _model.OnSoundsVolumeChanged += AudioEvents.RaiseSoundsVolumeChanged;
     }
